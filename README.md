@@ -46,12 +46,12 @@ so nothing you write is sent to a third-party service.
 
 - **Safety checks come first.** Every message goes through a rule-based classifier before any AI
   model sees it. If it looks like someone is at risk, the app skips the AI completely and shows
-  reviewed support text with helpline numbers from the database. See [docs/SAFETY.md](docs/SAFETY.md).
+  reviewed support text with helpline numbers from the database. See [docs/SAFETY.md](mindloop/docs/SAFETY.md).
 - **AI replies are checked too.** If a reply tries to diagnose, gives medication doses, claims to
   be human or promises confidentiality, it's thrown away and replaced with a safe template.
 - **Private by default.** Notes, messages and transcripts are encrypted in the database. Voice
   recordings are deleted right after transcription, logs never contain what users wrote, and
-  exporting or deleting your data takes one click. See [docs/PRIVACY.md](docs/PRIVACY.md).
+  exporting or deleting your data takes one click. See [docs/PRIVACY.md](mindloop/docs/PRIVACY.md).
 
 ## Getting started
 
@@ -96,7 +96,7 @@ To check that the whole stack works, run `python3 scripts/smoke_test.py`.
 
 > **On a Mac with Apple Silicon?** Docker can't use the GPU there, so replies are slow. Install
 > Ollama natively instead and it'll be about 5x faster. See
-> [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md#hybrid-docker-stack--host-ollama-apple-silicon).
+> [docs/DEVELOPMENT.md](mindloop/docs/DEVELOPMENT.md#hybrid-docker-stack--host-ollama-apple-silicon).
 
 ## Project structure
 
@@ -138,7 +138,7 @@ are stored in a Postgres table.
 ## Development
 
 To run the services natively with hot reload instead of in Docker, see
-[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md). The checks to run before opening a pull request:
+[docs/DEVELOPMENT.md](mindloop/docs/DEVELOPMENT.md). The checks to run before opening a pull request:
 
 ```bash
 # backend (needs the compose Postgres running: docker compose up -d postgres)
@@ -169,21 +169,21 @@ change:
 | `LLM_ENABLED` | Set to `false` to run without any AI model. Everything still works using rules |
 | `SEED_DEMO` | Creates the demo accounts. **Turn this off in production** |
 
-Swapping models doesn't need any code changes. See [docs/MODELS.md](docs/MODELS.md).
+Swapping models doesn't need any code changes. See [docs/MODELS.md](mindloop/docs/MODELS.md).
 
 ## Documentation
 
 | | |
 |---|---|
-| [Architecture](docs/ARCHITECTURE.md) | How the pieces fit together and how a request flows through them |
-| [Safety](docs/SAFETY.md) | The risk classifier, crisis flow and how rules are reviewed |
-| [Privacy](docs/PRIVACY.md) | What's stored, what's encrypted and how deletion works |
-| [API](docs/API.md) | Endpoints (the full spec is in `docs/openapi.json`) |
-| [Database](docs/DATABASE.md) | Tables and migrations |
-| [Models](docs/MODELS.md) | Which AI models are used and how to change them |
-| [Performance](docs/PERFORMANCE.md) | Latency and how many model calls each feature makes |
-| [Deployment](docs/DEPLOYMENT.md) | Running it on a server |
-| [Development](docs/DEVELOPMENT.md) | Local setup without Docker, and how to add things |
+| [Architecture](mindloop/docs/ARCHITECTURE.md) | How the pieces fit together and how a request flows through them |
+| [Safety](mindloop/docs/SAFETY.md) | The risk classifier, crisis flow and how rules are reviewed |
+| [Privacy](mindloop/docs/PRIVACY.md) | What's stored, what's encrypted and how deletion works |
+| [API](mindloop/docs/API.md) | Endpoints (the full spec is in `docs/openapi.json`) |
+| [Database](mindloop/docs/DATABASE.md) | Tables and migrations |
+| [Models](mindloop/docs/MODELS.md) | Which AI models are used and how to change them |
+| [Performance](mindloop/docs/PERFORMANCE.md) | Latency and how many model calls each feature makes |
+| [Deployment](mindloop/docs/DEPLOYMENT.md) | Running it on a server |
+| [Development](mindloop/docs/DEVELOPMENT.md) | Local setup without Docker, and how to add things |
 
 ## Before using this with real people
 
