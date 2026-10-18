@@ -44,4 +44,5 @@ graphify-out/
 Thumbs.db
 
 # Project docs (kept local, not on GitHub)
-docs/
+docs/*
+!docs/screenshots/

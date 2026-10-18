@@ -12,11 +12,11 @@ so nothing you write is sent to a third-party service.
 
 <table>
   <tr>
-    <td><img src="docs/screenshots/home.png" width="200" alt="Today screen with the latest check-in and a suggested action"></td>
-    <td><img src="docs/screenshots/check-in.png" width="200" alt="Check-in screen asking how you are"></td>
-    <td><img src="docs/screenshots/journey.png" width="200" alt="Journey screen with totals and a garden"></td>
-    <td><img src="docs/screenshots/calm.png" width="200" alt="Calm screen with breathing exercises"></td>
-    <td><img src="docs/screenshots/talk.png" width="200" alt="Talk screen with conversation starters"></td>
+    <td><img src="mindloop/docs/screenshots/home.png" width="200" alt="Today screen with the latest check-in and a suggested action"></td>
+    <td><img src="mindloop/docs/screenshots/check-in.png" width="200" alt="Check-in screen asking how you are"></td>
+    <td><img src="mindloop/docs/screenshots/journey.png" width="200" alt="Journey screen with totals and a garden"></td>
+    <td><img src="mindloop/docs/screenshots/calm.png" width="200" alt="Calm screen with breathing exercises"></td>
+    <td><img src="mindloop/docs/screenshots/talk.png" width="200" alt="Talk screen with conversation starters"></td>
   </tr>
   <tr>
     <td align="center">Today</td>
