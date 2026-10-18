@@ -1,0 +1,256 @@
+[
+  {
+    "slug": "task_breakdown_001", "category": "task_breakdown",
+    "targets": ["overwhelm", "avoidance", "procrastination"], "contexts": ["study_work"],
+    "duration_minutes": 10, "intensity": "low",
+    "content": {"en": {
+      "title": "Work on it for 10 minutes",
+      "summary": "You don't need to finish it. Just start the smallest piece for 10 minutes.",
+      "steps": ["Pick the one task that's bothering you most.", "Write down the very first physical step (e.g. 'open the document').", "Set a 10-minute timer and do only that.", "When the timer ends, you can stop — or keep going if you want."],
+      "why": "Starting small can make a large task feel more manageable."
+    }}
+  },
+  {
+    "slug": "task_breakdown_002", "category": "task_breakdown",
+    "targets": ["overwhelm", "decision_paralysis", "pressure"], "contexts": ["study_work", "general"],
+    "duration_minutes": 5, "intensity": "low",
+    "content": {"en": {
+      "title": "Split it into three steps",
+      "summary": "Write the task as three smaller steps, and circle the easiest one.",
+      "steps": ["Write the task at the top of a page.", "Break it into three smaller steps.", "Circle the easiest one — that's your next move."],
+      "why": "Seeing smaller pieces can reduce the feeling that everything has to happen at once."
+    }}
+  },
+  {
+    "slug": "study_plan_001", "category": "study_work_planning",
+    "targets": ["pressure", "overwhelm", "uncertainty"], "contexts": ["study_work"],
+    "duration_minutes": 10, "intensity": "low",
+    "content": {"en": {
+      "title": "Plan just tomorrow",
+      "summary": "Choose the 2–3 things that matter most for tomorrow, and give each a time.",
+      "steps": ["List everything on your mind for 2 minutes.", "Pick the 2–3 that matter most for tomorrow.", "Give each one a realistic time slot.", "Leave the rest on the list — it's safely written down."],
+      "why": "A short, concrete plan can make a busy period feel more contained."
+    }}
+  },
+  {
+    "slug": "interview_prep_001", "category": "study_work_planning",
+    "targets": ["uncertainty", "worry", "pressure"], "contexts": ["study_work"],
+    "duration_minutes": 15, "intensity": "low",
+    "content": {"en": {
+      "title": "Prepare one answer out loud",
+      "summary": "Pick one likely question and practise answering it out loud, once.",
+      "steps": ["Pick one question you're likely to be asked.", "Write 3 bullet points you'd want to mention.", "Say your answer out loud once — imperfect is fine.", "Notice one thing you did well."],
+      "why": "Practising one concrete thing can turn general worry into something you can act on."
+    }}
+  },
+  {
+    "slug": "problem_solving_001", "category": "problem_solving",
+    "targets": ["worry", "uncertainty", "money_stress", "conflict"], "contexts": ["general", "money", "family", "relationships"],
+    "duration_minutes": 10, "intensity": "medium",
+    "content": {"en": {
+      "title": "One problem, three options",
+      "summary": "Name the problem in one sentence, then write three possible next steps — even imperfect ones.",
+      "steps": ["Write the problem in one sentence.", "List three possible next steps, without judging them.", "Pick the one that's most doable this week.", "Decide when you'll do the first part."],
+      "why": "Writing options down can make a problem feel less stuck."
+    }}
+  },
+  {
+    "slug": "money_snapshot_001", "category": "problem_solving",
+    "targets": ["money_stress", "uncertainty", "worry"], "contexts": ["money"],
+    "duration_minutes": 10, "intensity": "low",
+    "content": {"en": {
+      "title": "A 10-minute money snapshot",
+      "summary": "Write down what's coming in and going out this month — just the big items.",
+      "steps": ["Write your expected income for this month.", "List the 5 biggest expenses.", "Mark one you could reduce or delay.", "Note one person or service you could ask for advice."],
+      "why": "Seeing the numbers can make money worry more specific and easier to plan around."
+    }}
+  },
+  {
+    "slug": "breathing_001", "category": "breathing",
+    "targets": ["anxiety_arousal", "pressure", "anger", "physical_tension"], "contexts": ["general"],
+    "duration_minutes": 3, "intensity": "low",
+    "content": {"en": {
+      "title": "Slow breathing for 3 minutes",
+      "summary": "Breathe in for 4 counts and out for 6 counts, for about 3 minutes.",
+      "steps": ["Sit or stand comfortably.", "Breathe in gently through your nose for 4 counts.", "Breathe out slowly for 6 counts.", "Repeat for about 3 minutes. Stop if you feel dizzy."],
+      "why": "A longer out-breath is commonly used to help the body settle."
+    }}
+  },
+  {
+    "slug": "grounding_001", "category": "grounding",
+    "targets": ["anxiety_arousal", "rumination", "worry"], "contexts": ["general"],
+    "duration_minutes": 3, "intensity": "low",
+    "content": {"en": {
+      "title": "5-4-3-2-1 grounding",
+      "summary": "Notice 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste.",
+      "steps": ["Name 5 things you can see.", "Name 4 things you can touch.", "Name 3 things you can hear.", "Name 2 things you can smell.", "Name 1 thing you can taste."],
+      "why": "Focusing on your senses can bring attention back to the present moment."
+    }}
+  },
+  {
+    "slug": "worry_time_001", "category": "reflection",
+    "targets": ["worry", "rumination", "poor_sleep"], "contexts": ["general", "sleep"],
+    "duration_minutes": 10, "intensity": "low",
+    "content": {"en": {
+      "title": "Set a 10-minute worry window",
+      "summary": "Write every worry down for 10 minutes, then close the notebook until tomorrow.",
+      "steps": ["Set a 10-minute timer.", "Write down every worry, without solving them.", "Star any that you can act on.", "Close the notebook. If a worry returns later, remind yourself it's written down."],
+      "why": "Putting worries on paper can make them feel less like they need attention all day."
+    }}
+  },
+  {
+    "slug": "sleep_winddown_001", "category": "sleep_hygiene",
+    "targets": ["poor_sleep", "screen_overuse", "rumination"], "contexts": ["sleep", "social_media"],
+    "duration_minutes": 20, "intensity": "low",
+    "content": {"en": {
+      "title": "A 20-minute wind-down tonight",
+      "summary": "Put your phone away 20 minutes before bed and do something calm instead.",
+      "steps": ["Pick a time to start winding down tonight.", "Put your phone out of reach, or on another side of the room.", "Do something calm: read, stretch, or listen to quiet music.", "If you can't sleep after a while, get up briefly and do something calm before trying again."],
+      "why": "A consistent wind-down is a common part of healthy sleep routines."
+    }}
+  },
+  {
+    "slug": "sleep_consistency_001", "category": "sleep_hygiene",
+    "targets": ["poor_sleep", "low_energy"], "contexts": ["sleep"],
+    "duration_minutes": 5, "intensity": "low",
+    "content": {"en": {
+      "title": "Choose a wake-up time",
+      "summary": "Pick one wake-up time you can keep for the next 3 days, including weekends.",
+      "steps": ["Choose a realistic wake-up time.", "Set an alarm for it for the next 3 days.", "Get some daylight soon after waking if you can.", "Notice how you feel after 3 days."],
+      "why": "A steady wake-up time is often suggested as a foundation for better sleep."
+    }}
+  },
+  {
+    "slug": "screen_break_001", "category": "behavioral_activation",
+    "targets": ["screen_overuse", "low_mood", "rumination"], "contexts": ["social_media"],
+    "duration_minutes": 15, "intensity": "low",
+    "content": {"en": {
+      "title": "A 15-minute offline break",
+      "summary": "Log out of one app for 15 minutes and do something with your hands or body.",
+      "steps": ["Pick the app you open most without thinking.", "Log out or move it off your home screen for now.", "Spend 15 minutes on something offline: a walk, tidying, cooking, music.", "Notice how you feel afterwards."],
+      "why": "Short breaks can make it easier to notice how scrolling affects your mood."
+    }}
+  },
+  {
+    "slug": "activation_walk_001", "category": "behavioral_activation",
+    "targets": ["low_mood", "low_energy", "avoidance"], "contexts": ["general", "health"],
+    "duration_minutes": 10, "intensity": "low",
+    "content": {"en": {
+      "title": "A 10-minute walk",
+      "summary": "Step outside, or walk around inside, for 10 minutes. No goal other than moving.",
+      "steps": ["Put on shoes.", "Walk for 10 minutes — outside if you can.", "Notice three things around you while walking.", "That's it. Getting started was the hard part."],
+      "why": "Small amounts of activity are often linked with small lifts in mood and energy."
+    }}
+  },
+  {
+    "slug": "activation_pleasant_001", "category": "behavioral_activation",
+    "targets": ["low_mood", "low_energy", "loneliness"], "contexts": ["general"],
+    "duration_minutes": 15, "intensity": "low",
+    "content": {"en": {
+      "title": "Do one small thing you usually enjoy",
+      "summary": "Pick something small you used to enjoy and do it for 15 minutes, even if you don't feel like it.",
+      "steps": ["List three small things you've enjoyed before.", "Pick the easiest one.", "Do it for 15 minutes.", "Rate your mood before and after, out of 10."],
+      "why": "Doing small enjoyable things — before motivation arrives — can gently lift mood."
+    }}
+  },
+  {
+    "slug": "connection_message_001", "category": "social_connection",
+    "targets": ["loneliness", "low_mood"], "contexts": ["loneliness", "relationships", "general"],
+    "duration_minutes": 5, "intensity": "low",
+    "content": {"en": {
+      "title": "Send one message",
+      "summary": "Send a short message to one person you feel comfortable with. It can be simple.",
+      "steps": ["Think of one person you feel okay talking to.", "Send something simple: 'Hey, thinking of you — how's it going?'", "You don't need to explain how you feel unless you want to."],
+      "why": "Small moments of connection can matter, even when they feel minor."
+    }}
+  },
+  {
+    "slug": "connection_trusted_001", "category": "social_connection",
+    "targets": ["loneliness", "worry", "conflict", "pressure"], "contexts": ["family", "relationships", "general"],
+    "duration_minutes": 15, "intensity": "medium",
+    "content": {"en": {
+      "title": "Talk it through with someone you trust",
+      "summary": "Think of one person you trust and plan when you could talk to them this week.",
+      "steps": ["Think of someone who usually listens well.", "Decide what you'd like to share — even one sentence.", "Choose a time this week to call, meet, or message them.", "If no one comes to mind, that's okay — a counsellor or helpline can also listen."],
+      "why": "Sharing what's on your mind can make it feel lighter and less isolating."
+    }}
+  },
+  {
+    "slug": "conflict_prep_001", "category": "problem_solving",
+    "targets": ["conflict", "pressure"], "contexts": ["family", "relationships"],
+    "duration_minutes": 10, "intensity": "medium",
+    "content": {"en": {
+      "title": "Prepare what you want to say",
+      "summary": "Write one sentence about how you feel and one about what you'd like, before a difficult conversation.",
+      "steps": ["Write: 'I feel ___ when ___.'", "Write: 'What I'd like is ___.'", "Choose a calm moment to talk, if it feels safe.", "It's okay to take a break if the conversation gets heated."],
+      "why": "Clear, calm 'I' statements can make difficult conversations easier."
+    }}
+  },
+  {
+    "slug": "self_compassion_001", "category": "self_compassion",
+    "targets": ["self_criticism", "low_mood", "pressure"], "contexts": ["general", "study_work"],
+    "duration_minutes": 5, "intensity": "low",
+    "content": {"en": {
+      "title": "Talk to yourself like a friend",
+      "summary": "Write what you'd say to a friend in your situation — then read it as if it were for you.",
+      "steps": ["Imagine a friend is going through exactly this.", "Write 2–3 sentences you'd say to them.", "Read them back slowly, as if they were meant for you."],
+      "why": "Many people are much kinder to friends than to themselves; this flips that around."
+    }}
+  },
+  {
+    "slug": "values_001", "category": "values_clarification",
+    "targets": ["uncertainty", "decision_paralysis", "low_mood"], "contexts": ["study_work", "general"],
+    "duration_minutes": 10, "intensity": "medium",
+    "content": {"en": {
+      "title": "What matters to you here?",
+      "summary": "Write down what you care about in this situation, and one small step towards it.",
+      "steps": ["Write down the situation in a sentence.", "Ask: what do I care about here? (e.g. learning, honesty, family, growth)", "Pick one small action this week that fits that value."],
+      "why": "Connecting choices to what matters to you can make uncertainty easier to navigate."
+    }}
+  },
+  {
+    "slug": "reflection_journal_001", "category": "reflection",
+    "targets": ["rumination", "worry", "low_mood"], "contexts": ["general"],
+    "duration_minutes": 5, "intensity": "low",
+    "content": {"en": {
+      "title": "Three-line reflection",
+      "summary": "Write what happened, how it felt, and one thing you need right now.",
+      "steps": ["What happened today? (one line)", "How did it feel? (one line)", "What's one thing I need right now? (one line)"],
+      "why": "Putting feelings into words can make them feel more manageable."
+    }}
+  },
+  {
+    "slug": "psychoed_stress_001", "category": "psychoeducation",
+    "targets": ["anxiety_arousal", "pressure", "worry"], "contexts": ["general", "study_work"],
+    "duration_minutes": 3, "intensity": "low",
+    "content": {"en": {
+      "title": "Notice how stress shows up",
+      "summary": "Spend 3 minutes noticing where stress shows up in your body and thoughts — no need to change it.",
+      "steps": ["Notice your body: shoulders, jaw, stomach, breathing.", "Notice your thoughts: are they racing, repeating, or planning?", "Name it: 'This is stress showing up.'", "Notice whether naming it changes anything, even slightly."],
+      "why": "Recognising your own stress signals can help you respond to them earlier."
+    }}
+  },
+  {
+    "slug": "body_tension_001", "category": "grounding",
+    "targets": ["physical_tension", "anxiety_arousal", "poor_sleep"], "contexts": ["general", "sleep", "health"],
+    "duration_minutes": 5, "intensity": "low",
+    "content": {"en": {
+      "title": "Release tension, one area at a time",
+      "summary": "Gently tense and relax your shoulders, hands and face, one at a time.",
+      "steps": ["Tense your shoulders for 5 seconds, then let them drop.", "Make fists for 5 seconds, then relax your hands.", "Scrunch your face for 5 seconds, then soften it.", "Take one slow breath and notice the difference."],
+      "why": "Alternating tension and release is a common relaxation technique."
+    }}
+  },
+  {
+    "slug": "professional_support_001", "category": "professional_support",
+    "targets": ["low_mood", "poor_sleep", "anxiety_arousal", "functioning"], "contexts": ["general", "health"],
+    "duration_minutes": 10, "intensity": "low", "requires_professional": true,
+    "allowed_risk_levels": ["low", "concerning"],
+    "content": {"en": {
+      "title": "Consider talking to a professional",
+      "summary": "If this has been going on for a while, a doctor, counsellor or mental health professional could help. Let's think about one way to reach out.",
+      "steps": ["Think about who you could contact: a college counsellor, a doctor, or a helpline.", "Write down what you'd like to tell them — even a few words.", "Choose a day this week to reach out.", "You can see the support options in the Support section."],
+      "why": "A professional can help you understand what's going on and what support could fit."
+    }}
+  }
+]

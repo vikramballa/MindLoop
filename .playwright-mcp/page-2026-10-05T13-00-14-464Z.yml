@@ -1,0 +1,109 @@
+- generic [active] [ref=f5e1]:
+  - link "Skip to content" [ref=f5e2] [cursor=pointer]:
+    - /url: "#main"
+  - button "Open Next.js Dev Tools" [ref=f5e28] [cursor=pointer]
+  - alert [ref=f5e32]
+  - generic [ref=f5e33]:
+    - generic [ref=f5e34]:
+      - banner [ref=f5e35]:
+        - link "MindLoop" [ref=f5e36] [cursor=pointer]:
+          - /url: /home
+        - link "Get help" [ref=f5e42] [cursor=pointer]:
+          - /url: /support
+      - main [ref=f5e45]:
+        - generic [ref=f5e46]:
+          - heading "Good evening" [level=1] [ref=f5e48]
+          - generic [ref=f5e280]:
+            - paragraph [ref=f5e281]: It sounds like something is weighing on you today.
+            - generic [ref=f5e282]:
+              - paragraph [ref=f5e283]: Try this
+              - heading "Do one small thing you usually enjoy" [level=3] [ref=f5e284]
+              - paragraph [ref=f5e285]: Pick something small you used to enjoy and do it for 15 minutes, even if you don't feel like it.
+              - generic [ref=f5e286]:
+                - button "Let's try it · 15 min" [ref=f5e287]
+                - button "Not feeling it — show me another" [ref=f5e288]
+              - button "Why this?" [ref=f5e289]
+            - generic [ref=f5e296]:
+              - paragraph [ref=f5e297]: Feeling alone is so common, and it doesn't mean something's wrong with you. Want help reaching out to someone?
+              - link "Help me reach out" [ref=f5e298] [cursor=pointer]:
+                - /url: /connect
+          - button "Check in again" [ref=f5e299]
+          - region [ref=f5e100]:
+            - heading "Quick resets" [level=2] [ref=f5e101]
+            - generic [ref=f5e102]:
+              - link "Breathe 1 min" [ref=f5e103] [cursor=pointer]:
+                - /url: /calm?tool=breathe
+                - generic [ref=f5e107]: Breathe
+                - generic [ref=f5e108]: 1 min
+              - link "Ground 5-4-3-2-1" [ref=f5e109] [cursor=pointer]:
+                - /url: /calm?tool=ground
+                - generic [ref=f5e113]: Ground
+                - generic [ref=f5e114]: 5-4-3-2-1
+              - link "Sounds Rain · waves" [ref=f5e115] [cursor=pointer]:
+                - /url: /calm?tool=sounds
+                - generic [ref=f5e119]: Sounds
+                - generic [ref=f5e120]: Rain · waves
+              - link "Reach out Text someone" [ref=f5e121] [cursor=pointer]:
+                - /url: /connect
+                - generic [ref=f5e127]: Reach out
+                - generic [ref=f5e128]: Text someone
+          - generic [ref=f5e129]:
+            - generic [ref=f5e153]:
+              - heading "You're not alone" [level=2] [ref=f5e154]
+              - paragraph [ref=f5e155]: 38 people checked in today
+            - paragraph [ref=f5e300]: 5 others felt drained today too.
+            - list [ref=f5e156]:
+              - listitem [ref=f5e157]: 12 · Relationships
+              - listitem [ref=f5e158]: 10 · Study / Work
+              - listitem [ref=f5e159]: 8 · 😰 Anxious
+              - listitem [ref=f5e160]: 7 · Social media
+              - listitem [ref=f5e301]: 6 · 🪫 Drained
+            - paragraph [ref=f5e162]: Anonymous counts — only shown when at least 5 people share them.
+          - generic [ref=f5e163]:
+            - generic [ref=f5e164]:
+              - heading "This week" [level=2] [ref=f5e165]
+              - link "See patterns" [ref=f5e166] [cursor=pointer]:
+                - /url: /patterns
+            - list [ref=f5e167]:
+              - listitem [ref=f5e168]:
+                - generic [ref=f5e171]: T
+                - generic [ref=f5e172]: "Tuesday: —"
+              - listitem [ref=f5e173]:
+                - generic [ref=f5e176]: W
+                - generic [ref=f5e177]: "Wednesday: —"
+              - listitem [ref=f5e178]:
+                - generic [ref=f5e181]: T
+                - generic [ref=f5e182]: "Thursday: —"
+              - listitem [ref=f5e183]:
+                - generic [ref=f5e186]: F
+                - generic [ref=f5e187]: "Friday: —"
+              - listitem [ref=f5e188]:
+                - generic [ref=f5e191]: S
+                - generic [ref=f5e192]: "Saturday: —"
+              - listitem [ref=f5e193]:
+                - generic [ref=f5e196]: S
+                - generic [ref=f5e197]: "Sunday: —"
+              - listitem [ref=f5e198]:
+                - generic [ref=f5e201]: M
+                - generic [ref=f5e202]: "Monday: Low"
+            - paragraph [ref=f5e203]:
+              - text: You showed up 1 of the last 7 days ·
+              - link "All check-ins" [ref=f5e204] [cursor=pointer]:
+                - /url: /check-in
+    - navigation "Main navigation" [ref=f5e205]:
+      - list [ref=f5e206]:
+        - listitem [ref=f5e207]:
+          - link "Home" [ref=f5e208] [cursor=pointer]:
+            - /url: /home
+        - listitem [ref=f5e211]:
+          - link "Calm" [ref=f5e212] [cursor=pointer]:
+            - /url: /calm
+        - listitem [ref=f5e217]:
+          - link "Talk" [ref=f5e218] [cursor=pointer]:
+            - /url: /talk
+        - listitem [ref=f5e221]:
+          - link "Connect" [ref=f5e222] [cursor=pointer]:
+            - /url: /connect
+        - listitem [ref=f5e227]:
+          - link "You" [ref=f5e228] [cursor=pointer]:
+            - /url: /profile

@@ -1,0 +1,51 @@
+- generic [active] [ref=f11e1]:
+  - link "Skip to content" [ref=f11e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f11e3]:
+    - generic [ref=f11e16]:
+      - banner [ref=f11e17]:
+        - link "MindLoop" [ref=f11e18] [cursor=pointer]:
+          - /url: /home
+        - link "Get help" [ref=f11e24] [cursor=pointer]:
+          - /url: /support
+      - main [ref=f11e27]:
+        - generic [ref=f11e29]:
+          - heading "Talk" [level=1] [ref=f11e30]
+          - paragraph [ref=f11e31]: Vent, think out loud, or figure out a next step. I'm an AI companion — not a therapist — and I'll point you to real people when that's what you need.
+        - generic [ref=f11e32]:
+          - button "New chat" [ref=f11e34]
+          - generic [ref=f11e36]:
+            - paragraph [ref=f11e41]: Hey, I'm here.
+            - paragraph [ref=f11e42]: No wrong way to start. Tap one of these or just type.
+            - generic [ref=f11e43]:
+              - button "I just need to vent" [ref=f11e44]
+              - button "I feel left out lately" [ref=f11e45]
+              - button "I can't sleep" [ref=f11e46]
+              - button "Exam stress is getting to me" [ref=f11e47]
+              - button "Things are tense at home" [ref=f11e48]
+              - button "I don't know what I want to do with my life" [ref=f11e49]
+          - generic [ref=f11e50]:
+            - generic [ref=f11e51]: Say what's on your mind…
+            - textbox "Say what's on your mind…" [ref=f11e52]
+            - button "Record a voice message" [ref=f11e53]
+            - button "Send" [disabled] [ref=f11e57]
+          - paragraph [ref=f11e60]: Voice recordings are deleted right after transcription.
+    - navigation "Main navigation" [ref=f11e61]:
+      - list [ref=f11e62]:
+        - listitem [ref=f11e63]:
+          - link "Home" [ref=f11e64] [cursor=pointer]:
+            - /url: /home
+        - listitem [ref=f11e67]:
+          - link "Calm" [ref=f11e68] [cursor=pointer]:
+            - /url: /calm
+        - listitem [ref=f11e73]:
+          - link "Talk" [ref=f11e74] [cursor=pointer]:
+            - /url: /talk
+        - listitem [ref=f11e77]:
+          - link "Connect" [ref=f11e78] [cursor=pointer]:
+            - /url: /connect
+        - listitem [ref=f11e83]:
+          - link "You" [ref=f11e84] [cursor=pointer]:
+            - /url: /profile
+  - button "Open Next.js Dev Tools" [ref=f11e11] [cursor=pointer]
+  - alert [ref=f11e15]

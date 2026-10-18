@@ -1,0 +1,47 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Tests and coverage
+coverage/
+.coverage
+playwright-report/
+test-results/
+
+# Logs and temporary files
+*.log
+logs/
+*.audio
+*.tmp
+
+# Tooling output
+.playwright-mcp/
+graphify-out/
+.claude/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Project docs (kept local, not on GitHub)
+docs/

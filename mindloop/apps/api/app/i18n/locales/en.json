@@ -1,0 +1,133 @@
+{
+  "topics": {
+    "study_work": "study or work",
+    "relationships": "relationships",
+    "family": "family",
+    "money": "money",
+    "sleep": "sleep",
+    "loneliness": "loneliness",
+    "health": "health",
+    "social_media": "social media",
+    "other": "something else"
+  },
+  "categories": {
+    "behavioral_activation": "Small activating steps",
+    "task_breakdown": "Breaking tasks down",
+    "problem_solving": "Problem solving",
+    "grounding": "Grounding",
+    "breathing": "Breathing",
+    "sleep_hygiene": "Sleep routines",
+    "social_connection": "Connecting with people",
+    "reflection": "Reflection",
+    "self_compassion": "Self-compassion",
+    "values_clarification": "Values",
+    "study_work_planning": "Planning study or work",
+    "psychoeducation": "Understanding stress",
+    "professional_support": "Professional support"
+  },
+  "reflection": {
+    "positive": "It's good to hear today feels better. Noticing what's helping can be useful on harder days.",
+    "neutral": "Thanks for checking in. Small, steady steps still count.",
+    "none": "Thanks for checking in.",
+    "topic": {
+      "study_work": "It sounds like study or work is taking up a lot of space today.",
+      "relationships": "It sounds like something in a relationship is weighing on you.",
+      "family": "It sounds like something with family is on your mind.",
+      "money": "Money worries can make everything else feel heavier.",
+      "sleep": "Sleep seems to be part of what's affecting you today.",
+      "loneliness": "Feeling disconnected from people can be really draining.",
+      "health": "Something about your health seems to be on your mind.",
+      "social_media": "Time online seems to be part of what's affecting you.",
+      "other": "It sounds like something is weighing on you today."
+    }
+  },
+  "action": {
+    "lead": "Try this:",
+    "start": "Start {minutes}-minute action",
+    "feedback_question": "Did this help?"
+  },
+  "safety": {
+    "high": {
+      "title": "Let's get you support right now",
+      "suicide": [
+        "I'm really glad you told me. What you're describing sounds serious, and you deserve support from a real person right now.",
+        "If you might act on these thoughts or are in immediate danger, please contact emergency services or go to the nearest hospital emergency department now.",
+        "If you can, tell someone you trust how you're feeling and ask them to stay with you."
+      ],
+      "self_harm": [
+        "Thank you for telling me. You deserve care and support from a real person right now.",
+        "If you have hurt yourself or might do so soon, please contact emergency services or go to the nearest emergency department.",
+        "If you can, reach out to someone you trust and let them know what's happening."
+      ],
+      "harm_to_others": [
+        "It sounds like things feel very intense right now.",
+        "If you feel you might hurt someone, please put distance between yourself and the situation and contact emergency services or a crisis line now.",
+        "Talking to a trained person can help you get through this moment safely."
+      ],
+      "medical_emergency": [
+        "This sounds like it could be a medical emergency.",
+        "Please contact emergency services right now or go to the nearest emergency department. If someone is nearby, ask them to help you."
+      ],
+      "unsafe_situation": [
+        "Your safety matters most right now.",
+        "If you are in danger, please contact emergency services. If you can, move to a safer place or go to someone you trust."
+      ],
+      "severe_disorientation": [
+        "It sounds like things feel very confusing right now.",
+        "Please ask someone nearby to help you, and contact emergency services or a doctor as soon as possible."
+      ],
+      "ai_notice": "I'm an AI wellbeing companion and can't provide emergency or crisis care. Reaching a person now is the most important step.",
+      "no_local_resources": "Please contact your local emergency number or go to the nearest hospital emergency department."
+    },
+    "concerning": {
+      "title": "Support is available",
+      "default": [
+        "It sounds like things have been really hard lately.",
+        "You don't have to carry this alone. Talking with someone you trust, or with a mental health professional, could help.",
+        "If things get worse or you ever feel unsafe, support is available at any time."
+      ],
+      "unusual_experiences": [
+        "Experiences like that can feel unsettling.",
+        "I can't tell what's behind them, but a doctor or mental health professional can help you understand what's going on. It may be worth arranging an assessment soon."
+      ],
+      "functioning": [
+        "When sleep, eating or getting through the day stay this hard for a while, it's worth checking in with a doctor or mental health professional.",
+        "In the meantime, we can keep things very small and manageable."
+      ],
+      "third_party_risk": [
+        "It sounds like you're worried about someone's safety. That's a lot to hold.",
+        "If they may be in immediate danger, contact emergency services. You can also call a helpline yourself for guidance on how to support them."
+      ],
+      "abuse": [
+        "No one deserves to be hurt.",
+        "If you are in danger, contact emergency services. A helpline can talk through options with you confidentially."
+      ]
+    }
+  },
+  "reply": {
+    "fallback": "Thanks for sharing that. I'm not able to put together a full reply right now, but here's one small thing that might help: {title}. {summary}",
+    "guarded": "Thanks for telling me. I'm not able to give medical or diagnostic advice — a doctor or mental health professional is the right person for that. If it's useful, here's one small thing you could try: {title}."
+  },
+  "patterns": {
+    "topic_mood_lower": "Your mood has tended to be lower on days you mention {topic}.",
+    "topic_mood_higher": "Your mood has tended to be higher on days you mention {topic}.",
+    "sleep_stress": "Your sleep has been shorter on days when you report higher stress.",
+    "sleep_mood": "On days with more sleep, your reported mood appears to be higher.",
+    "intervention_helpful": "{category} has been one of your more helpful kinds of action.",
+    "intervention_unhelpful": "{category} hasn't seemed to help much lately, so we'll suggest other things first.",
+    "mood_trend_down": "Your recent check-ins show lower reported mood than your usual.",
+    "mood_trend_up": "Your recent check-ins show higher reported mood than your usual.",
+    "stress_trend_up": "Your recent check-ins show higher reported stress than your usual.",
+    "why": {
+      "topic_mood": "Based on {n_with} check-ins mentioning {topic} and {n_without} without, from {start} to {end}. Average mood {avg_with} vs {avg_without} on a 1–5 scale. This is an association in what you reported, not a cause.",
+      "sleep_stress": "Based on {n} check-ins where you shared both sleep and stress, from {start} to {end} (correlation {r}). This is an association in what you reported, not a cause.",
+      "sleep_mood": "Based on {n} check-ins where you shared both sleep and mood, from {start} to {end} (correlation {r}). This is an association in what you reported, not a cause.",
+      "intervention": "Based on {n} times you rated {category} actions: {positive} rated helpful. Your feedback is used to choose future suggestions.",
+      "trend": "Your last 7 days average {recent} compared with {baseline} over the last 30 days, on a 1–5 scale."
+    },
+    "not_enough_data": "Patterns will appear after about {n} check-ins. There's no rush."
+  },
+  "home": {
+    "welcome_back": "Welcome back."
+  }
+}

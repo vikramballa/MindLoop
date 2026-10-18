@@ -1,0 +1,53 @@
+[
+  {
+    "country": "ZZ", "language": "en",
+    "data": {
+      "formality": "friendly and respectful",
+      "spelling_instruction": "",
+      "example_situations": ["deadlines", "exams", "starting a new job", "moving to a new city"],
+      "open_questions": [
+        "What's taking up most of your energy right now?",
+        "Is there anyone you feel comfortable talking to about this?"
+      ],
+      "support_pathway_note": "If you'd like to talk to a professional, a doctor or a local counselling service is a good place to start.",
+      "emergency_number": null
+    }
+  },
+  {
+    "country": "IN", "language": "en",
+    "data": {
+      "formality": "warm, friendly and respectful",
+      "spelling_instruction": "Use Indian English spelling and everyday wording where natural (e.g. 'counsellor').",
+      "example_situations": ["exams", "placements", "interviews", "hostel or PG life", "commuting", "a new job"],
+      "open_questions": [
+        "What's taking up most of your energy right now?",
+        "Would expectations from others be part of what's affecting you, or is it something else?",
+        "Is there anyone you feel comfortable talking to about this?"
+      ],
+      "support_pathway_note": "Tele-MANAS is a free Government of India mental health helpline. Many colleges also have a student counsellor.",
+      "emergency_number": "112"
+    }
+  },
+  {
+    "country": "GB", "language": "en",
+    "data": {
+      "formality": "friendly and respectful",
+      "spelling_instruction": "Use British English spelling.",
+      "example_situations": ["deadlines", "exams", "a new job", "moving to a new city"],
+      "open_questions": ["What's taking up most of your energy right now?"],
+      "support_pathway_note": "Your GP can be a good first step for talking about your mental health.",
+      "emergency_number": "999"
+    }
+  },
+  {
+    "country": "US", "language": "en",
+    "data": {
+      "formality": "friendly and respectful",
+      "spelling_instruction": "Use American English spelling.",
+      "example_situations": ["deadlines", "exams", "a new job", "moving to a new city"],
+      "open_questions": ["What's taking up most of your energy right now?"],
+      "support_pathway_note": "A primary care provider or campus counseling center can be a good first step.",
+      "emergency_number": "911"
+    }
+  }
+]

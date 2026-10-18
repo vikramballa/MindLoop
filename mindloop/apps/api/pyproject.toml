@@ -1,0 +1,66 @@
+[project]
+name = "mindloop-api"
+version = "0.1.0"
+description = "MindLoop wellbeing companion API (FastAPI modular monolith)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.32",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30",
+    "alembic>=1.14",
+    "pgvector>=0.3.6",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "email-validator>=2.2",
+    "argon2-cffi>=23.1",
+    "pyjwt>=2.10",
+    "httpx>=0.28",
+    "cryptography>=44.0",
+    "python-multipart>=0.0.18",
+]
+
+[project.optional-dependencies]
+# Speech-to-text is only needed by the worker; keeps the API image small.
+voice = ["faster-whisper>=1.1", "av>=12,<16"]  # av 16 removed an argument faster-whisper uses
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+    "mypy>=1.13",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "ASYNC", "SIM"]
+ignore = ["S101", "B008", "S311"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S105", "S106"]
+"alembic/*" = ["E501"]
+"app/ai/prompts.py" = ["E501"]  # prompt text reads better unwrapped
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]

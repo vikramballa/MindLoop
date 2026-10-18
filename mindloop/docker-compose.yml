@@ -1,0 +1,156 @@
+# MindLoop — full local stack. Usage: cp .env.example .env && docker compose up --build
+# Ollama runs in a container by default (COMPOSE_PROFILES=ollama). On Apple Silicon you can
+# use the host's Metal-accelerated Ollama instead — see docs/DEVELOPMENT.md.
+
+x-api-env: &api-env
+  ENVIRONMENT: ${ENVIRONMENT:-development}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-mindloop}:${POSTGRES_PASSWORD:-mindloop}@postgres:5432/${POSTGRES_DB:-mindloop}
+  JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+  ENCRYPTION_KEY: ${ENCRYPTION_KEY:-}
+  CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+  COOKIE_SECURE: ${COOKIE_SECURE:-false}
+  OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+  MODEL_CHAT: ${MODEL_CHAT:-qwen3:4b-instruct}
+  MODEL_EXTRACTION: ${MODEL_EXTRACTION:-qwen3:4b-instruct}
+  MODEL_EMBEDDING: ${MODEL_EMBEDDING:-nomic-embed-text}
+  EMBEDDING_DIM: ${EMBEDDING_DIM:-768}
+  MODEL_STT: ${MODEL_STT:-base}
+  LLM_ENABLED: ${LLM_ENABLED:-true}
+  EMBEDDINGS_ENABLED: ${EMBEDDINGS_ENABLED:-true}
+  AUDIO_TMP_DIR: /data/audio
+  MAX_AUDIO_SECONDS: ${MAX_AUDIO_SECONDS:-120}
+  MAX_AUDIO_BYTES: ${MAX_AUDIO_BYTES:-8388608}
+  SEED_DEMO: ${SEED_DEMO:-true}
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mindloop}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mindloop}
+      POSTGRES_DB: ${POSTGRES_DB:-mindloop}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ollama"]
+    restart: unless-stopped
+    volumes:
+      - ollama_models:/root/.ollama
+    ports:
+      - "127.0.0.1:${OLLAMA_PORT:-11434}:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  # One-shot: pulls configured models into the persistent volume (no-op if present).
+  ollama-pull:
+    image: ollama/ollama:latest
+    profiles: ["ollama"]
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        for m in ${MODEL_CHAT:-qwen3:4b-instruct} ${MODEL_EXTRACTION:-qwen3:4b-instruct} ${MODEL_EMBEDDING:-nomic-embed-text}; do
+        ollama show $$m >/dev/null 2>&1 || ollama pull $$m || exit 1; done
+    restart: "no"
+
+  # One-shot: migrations + idempotent seed data.
+  migrate:
+    build:
+      context: ./apps/api
+    environment:
+      <<: *api-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["sh", "-c", "alembic upgrade head && python -m app.seed.run"]
+    restart: "no"
+
+  api:
+    build:
+      context: ./apps/api
+    restart: unless-stopped
+    environment:
+      <<: *api-env
+    volumes:
+      - audio_tmp:/data/audio
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      ollama:
+        condition: service_started
+        required: false
+
+  worker:
+    build:
+      context: ./apps/api
+      args:
+        UV_EXTRAS: "--extra voice"
+    restart: unless-stopped
+    command: ["python", "-m", "app.workers.main"]
+    environment:
+      <<: *api-env
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-2}
+    volumes:
+      - audio_tmp:/data/audio
+      - whisper_models:/data/models
+    healthcheck:
+      test: ["CMD-SHELL", "test $$(( $$(date +%s) - $$(cat /tmp/mindloop-worker-heartbeat 2>/dev/null || echo 0) )) -lt 60"]
+      interval: 15s
+      timeout: 3s
+      start_period: 30s
+      retries: 3
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      ollama:
+        condition: service_started
+        required: false
+
+  web:
+    build:
+      context: ./apps/web
+    restart: unless-stopped
+    environment:
+      API_INTERNAL_URL: http://api:8000
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
+
+volumes:
+  postgres_data:
+  ollama_models:
+  whisper_models:
+  audio_tmp:

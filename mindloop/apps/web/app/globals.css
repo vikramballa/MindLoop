@@ -1,0 +1,388 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. A warm paper background, near-black ink and a single lime accent. Everything
+ * else that has colour (faces, calendar, garden, background glow) takes it from the mood palette.
+ * The amber "care" colour is only used on support and crisis screens.
+ * Dark mode follows the system unless the user picks a theme (<html data-theme="light|dark">).
+ */
+:root {
+  --bg: #f3f0ea;
+  --surface: #fbfaf6;
+  --surface-2: #ebe7df;
+  --raised: #ffffff;
+  --border: #e0dbd1;
+  --ink: #16131b;
+  --ink-soft: #4b4653;
+  --ink-faint: #69646f;
+  --accent: #cbef55;
+  --on-accent: #16131b;
+  --accent-fg: #4a6500;
+  --accent-soft: #e9f5c2;
+  --green: #1d7a5c;
+  --green-soft: #dbf1e7;
+  --blue-soft: #e3ebf7;
+  --care: #8a4a12;
+  --care-soft: #fbf0e2;
+  --care-border: #efd4b0;
+  --chart-line: #16131b;
+  --chart-grid: #e4dfd6;
+  --focus: #4a6500;
+  --shadow: 30 22 20;
+  --highlight: rgb(255 255 255 / 0.55);
+  --feature: #16131b;
+  --on-feature: #f3f1f6;
+  --aura-a: #c9c2ff;
+  --aura-b: #ffd3b8;
+  --aura-opacity: 0.6;
+  --grain-opacity: 0.05;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e0d12;
+    --surface: #16151b;
+    --surface-2: #211f28;
+    --raised: #1b1a21;
+    --border: #2a2832;
+    --ink: #f3f1f6;
+    --ink-soft: #bfbac8;
+    --ink-faint: #918c9b;
+    --accent: #d4f56a;
+    --on-accent: #121410;
+    --accent-fg: #d4f56a;
+    --accent-soft: #252c10;
+    --green: #74d6b0;
+    --green-soft: #142a22;
+    --blue-soft: #1a2232;
+    --care: #f3c58f;
+    --care-soft: #2a2015;
+    --care-border: #4a3820;
+    --chart-line: #f3f1f6;
+    --chart-grid: #26242d;
+    --focus: #d4f56a;
+    --shadow: 0 0 0;
+    --highlight: rgb(255 255 255 / 0.04);
+    --feature: #23212b;
+    --on-feature: #f3f1f6;
+    --aura-opacity: 0.3;
+    --grain-opacity: 0.07;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e0d12;
+  --surface: #16151b;
+  --surface-2: #211f28;
+  --raised: #1b1a21;
+  --border: #2a2832;
+  --ink: #f3f1f6;
+  --ink-soft: #bfbac8;
+  --ink-faint: #918c9b;
+  --accent: #d4f56a;
+  --on-accent: #121410;
+  --accent-fg: #d4f56a;
+  --accent-soft: #252c10;
+  --green: #74d6b0;
+  --green-soft: #142a22;
+  --blue-soft: #1a2232;
+  --care: #f3c58f;
+  --care-soft: #2a2015;
+  --care-border: #4a3820;
+  --chart-line: #f3f1f6;
+  --chart-grid: #26242d;
+  --focus: #d4f56a;
+  --shadow: 0 0 0;
+  --highlight: rgb(255 255 255 / 0.04);
+  --feature: #23212b;
+  --on-feature: #f3f1f6;
+  --aura-opacity: 0.3;
+  --grain-opacity: 0.07;
+}
+
+/* Mood-reactive glow: set by <html data-mood="1..5">. Registered so the colours cross-fade. */
+@property --aura-a {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c9c2ff;
+}
+@property --aura-b {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffd3b8;
+}
+:root[data-mood="5"] {
+  --aura-a: #ffd76a;
+  --aura-b: #ff9f5a;
+}
+:root[data-mood="4"] {
+  --aura-a: #8ee6c4;
+  --aura-b: #7cc7f0;
+}
+:root[data-mood="3"] {
+  --aura-a: #c9cbe6;
+  --aura-b: #a9c4f0;
+}
+:root[data-mood="2"] {
+  --aura-a: #9aa6ff;
+  --aura-b: #b9a6ff;
+}
+:root[data-mood="1"] {
+  --aura-a: #8d7ae6;
+  --aura-b: #e59ac8;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-raised: var(--raised);
+  --color-line: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-feature: var(--feature);
+  --color-on-feature: var(--on-feature);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-blue-soft: var(--blue-soft);
+  --color-care: var(--care);
+  --color-care-soft: var(--care-soft);
+  --color-care-border: var(--care-border);
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --radius-card: 1.5rem;
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.aura {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: var(--aura-opacity);
+  transition:
+    --aura-a 1.2s ease,
+    --aura-b 1.2s ease;
+}
+.aura::before,
+.aura::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  animation: drift 28s ease-in-out infinite alternate;
+}
+.aura::before {
+  width: 85vmax;
+  height: 55vmax;
+  top: -38vmax;
+  left: -25vmax;
+  background: radial-gradient(closest-side, var(--aura-a), transparent);
+}
+.aura::after {
+  width: 60vmax;
+  height: 45vmax;
+  top: -26vmax;
+  right: -28vmax;
+  background: radial-gradient(closest-side, var(--aura-b), transparent);
+  animation-delay: -14s;
+}
+
+/* Film grain: breaks digital flatness. Pure CSS, no network request. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 0.75rem;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@layer components {
+/* Surfaces: a hairline border plus a soft shadow tinted to the page, lit from above. */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 0 var(--highlight) inset,
+    0 1px 2px rgb(var(--shadow) / 0.04),
+    0 12px 32px -18px rgb(var(--shadow) / 0.18);
+}
+.glass {
+  background: color-mix(in oklab, var(--surface) 72%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow:
+    0 1px 0 var(--highlight) inset,
+    0 16px 40px -16px rgb(var(--shadow) / 0.35);
+}
+}
+
+/* Staggered entrance: set style={{ "--i": n }} for a 55ms cascade. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: rise 520ms var(--ease-out-soft) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1.06);
+  }
+}
+.animate-pop {
+  animation: pop 380ms var(--ease-spring) both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--r, 0deg));
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+.animate-ripple {
+  animation: ripple 3.2s ease-out infinite;
+}
+
+/* Idle "breathing" for the hero orb. */
+@keyframes orb {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+.animate-orb {
+  animation: orb 7s ease-in-out infinite;
+}
+
+/* Celebration particles (see components/Burst.tsx). */
+@keyframes burst {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--a)) translateY(0) scale(0.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--d) * -1)) scale(1);
+    opacity: 0;
+  }
+}
+.burst-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  animation: burst 900ms var(--ease-out-soft) forwards;
+}
+
+/* Plants in the garden grow up from the soil. */
+@keyframes sprout {
+  from {
+    transform: scaleY(0.2);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.animate-sprout {
+  transform-origin: 50% 100%;
+  animation: sprout 700ms var(--ease-spring) both;
+  animation-delay: calc(var(--i, 0) * 35ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

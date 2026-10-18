@@ -1,0 +1,83 @@
+{
+  "_notice": "Compiled 2026-10-04 from official public listings named in verification_source. Every entry MUST be re-verified by a human against the official source before production, and re-verified periodically (see docs/SAFETY.md). Never generate numbers with a model.",
+  "compiled_on": "2026-10-04",
+  "resources": [
+    {
+      "country": "IN", "organization": "Tele-MANAS (Ministry of Health & Family Welfare, Government of India)",
+      "type": "mental_health_helpline", "phone": "14416", "website": "https://telemanas.mohfw.gov.in",
+      "hours": "24x7", "languages": ["en", "hi", "te", "ta", "kn", "ml", "mr", "bn"],
+      "description": "Free national tele-mental health helpline. Also reachable at 1-800-891-4416.",
+      "verification_source": "https://telemanas.mohfw.gov.in (official Government of India site)", "priority": 10
+    },
+    {
+      "country": "IN", "organization": "Emergency Response Support System (India)",
+      "type": "emergency", "phone": "112", "website": "https://112.gov.in",
+      "hours": "24x7", "languages": ["en", "hi"],
+      "description": "National emergency number for police, fire and ambulance.",
+      "verification_source": "https://112.gov.in (official Government of India site)", "priority": 1
+    },
+    {
+      "country": "US", "organization": "988 Suicide & Crisis Lifeline",
+      "type": "crisis_line", "phone": "988", "website": "https://988lifeline.org",
+      "hours": "24/7", "languages": ["en", "es"],
+      "description": "Call or text 988 for free, confidential crisis support.",
+      "verification_source": "https://988lifeline.org (official site)", "priority": 10
+    },
+    {
+      "country": "US", "organization": "Emergency services (US)", "type": "emergency", "phone": "911",
+      "website": null, "hours": "24/7", "languages": ["en"],
+      "description": "Police, fire and ambulance.", "verification_source": "https://www.911.gov", "priority": 1
+    },
+    {
+      "country": "GB", "organization": "Samaritans", "type": "crisis_line", "phone": "116 123",
+      "website": "https://www.samaritans.org", "hours": "24/7", "languages": ["en"],
+      "description": "Free, confidential listening support any time.",
+      "verification_source": "https://www.samaritans.org (official site)", "priority": 10
+    },
+    {
+      "country": "GB", "organization": "Emergency services (UK)", "type": "emergency", "phone": "999",
+      "website": null, "hours": "24/7", "languages": ["en"],
+      "description": "Police, fire and ambulance. For urgent mental health help you can also call NHS 111.",
+      "verification_source": "https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-call-999/", "priority": 1
+    },
+    {
+      "country": "DE", "organization": "TelefonSeelsorge", "type": "crisis_line", "phone": "0800 111 0 111",
+      "website": "https://www.telefonseelsorge.de", "hours": "24/7", "languages": ["de"],
+      "description": "Free, anonymous telephone counselling. Alternative number: 0800 111 0 222.",
+      "verification_source": "https://www.telefonseelsorge.de (official site)", "priority": 10
+    },
+    {
+      "country": "DE", "organization": "Notruf (Germany)", "type": "emergency", "phone": "112",
+      "website": null, "hours": "24/7", "languages": ["de", "en"],
+      "description": "Emergency medical services and fire.", "verification_source": "EU single emergency number 112", "priority": 1
+    },
+    {
+      "country": "FR", "organization": "3114 — Numéro national de prévention du suicide", "type": "crisis_line",
+      "phone": "3114", "website": "https://3114.fr", "hours": "24/7", "languages": ["fr"],
+      "description": "Free national suicide-prevention line.",
+      "verification_source": "https://3114.fr (official site)", "priority": 10
+    },
+    {
+      "country": "FR", "organization": "Urgences (France)", "type": "emergency", "phone": "112",
+      "website": null, "hours": "24/7", "languages": ["fr", "en"],
+      "description": "European emergency number (15 for SAMU medical emergencies).",
+      "verification_source": "EU single emergency number 112", "priority": 1
+    },
+    {
+      "country": "PT", "organization": "SNS 24", "type": "mental_health_helpline", "phone": "808 24 24 24",
+      "website": "https://www.sns24.gov.pt", "hours": "24/7", "languages": ["pt"],
+      "description": "National Health Service line, including psychological support.",
+      "verification_source": "https://www.sns24.gov.pt (official site)", "priority": 10
+    },
+    {
+      "country": "PT", "organization": "Emergência (Portugal)", "type": "emergency", "phone": "112",
+      "website": null, "hours": "24/7", "languages": ["pt", "en"],
+      "description": "European emergency number.", "verification_source": "EU single emergency number 112", "priority": 1
+    },
+    {
+      "country": "JP", "organization": "Emergency ambulance (Japan)", "type": "emergency", "phone": "119",
+      "website": null, "hours": "24/7", "languages": ["ja"],
+      "description": "Ambulance and fire. Police: 110.", "verification_source": "Fire and Disaster Management Agency, Japan", "priority": 1
+    }
+  ]
+}
