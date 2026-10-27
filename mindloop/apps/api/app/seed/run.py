@@ -30,6 +30,8 @@ from app.models import (
     Intervention,
     InterventionAssignment,
     InterventionFeedback,
+    Reflection,
+    SafetyPlan,
     SupportResource,
     User,
     UserPreferences,
@@ -223,7 +225,80 @@ async def seed_demo(db: AsyncSession) -> None:
                 checkin.intervention_assignment_id = a.id
     await db.commit()
     await PatternService(db).recompute(demo.id)
+    await seed_demo_reflections(db, demo)
     await seed_demo_community(db)
+
+
+_DEMO_REFRAMES: list[dict[str, Any]] = [
+    {
+        "situation": "My mock interview went badly.",
+        "thought": "I'm never going to get placed anywhere.",
+        "evidence_for": "I froze on the second question.",
+        "evidence_against": "It was a mock. I answered the first and third well, and I have six weeks left.",
+        "balanced": "One rough practice run shows me what to work on. It doesn't decide the whole season.",
+        "distortions": ["fortune_telling", "overgeneralizing"],
+        "belief": (85, 35),
+    },
+    {
+        "situation": "Friends made plans in the group chat without me.",
+        "thought": "Nobody actually wants me around.",
+        "evidence_for": "I found out after.",
+        "evidence_against": "Riya called me on Sunday. The plan was made in five minutes by whoever was online.",
+        "balanced": "It was probably last-minute, not a judgement about me. I can ask to join next time.",
+        "distortions": ["mind_reading", "personalizing"],
+        "belief": (70, 30),
+    },
+]
+_DEMO_GRATITUDE = [
+    ["Chai with Riya after class", "The rain finally stopped", "Mum's voice note"],
+    ["Finished the DBMS assignment", "A stranger held the lift"],
+    ["Slept eight hours", "Found my favourite pen"],
+]
+
+
+async def seed_demo_reflections(db: AsyncSession, demo: User) -> None:
+    """A few journal entries and a sample safety plan, so Reflect has something to show."""
+    if (await db.execute(select(Reflection.id).where(Reflection.user_id == demo.id).limit(1))).first():
+        return
+    now = datetime.now(UTC)
+    for i, r in enumerate(_DEMO_REFRAMES):
+        before, after = r["belief"]
+        content = {k: r[k] for k in ("situation", "thought", "evidence_for", "evidence_against", "balanced")}
+        db.add(
+            Reflection(
+                user_id=demo.id,
+                kind="reframe",
+                content=json.dumps(content),
+                distortions=r["distortions"],
+                belief_before=before,
+                belief_after=after,
+                risk_level="low",
+                created_at=now - timedelta(days=2 + i * 5),
+            )
+        )
+    for i, items in enumerate(_DEMO_GRATITUDE):
+        db.add(
+            Reflection(
+                user_id=demo.id,
+                kind="gratitude",
+                content=json.dumps({"items": items, "why": ""}),
+                distortions=[],
+                risk_level="low",
+                created_at=now - timedelta(days=1 + i * 3),
+            )
+        )
+    plan = {
+        "warning_signs": ["Skipping meals and staying in my room", "Not replying to anyone for a day"],
+        "coping": ["Physiological sigh, five times", "Shower, then a walk round the block"],
+        "distractions": ["Library cafe on the ground floor", "Calling my cousin"],
+        "people": [{"name": "Riya", "phone": ""}, {"name": "Mum", "phone": ""}],
+        "professionals": [{"name": "College counsellor", "phone": ""}],
+        "safe_environment": ["Leave my phone outside the room at night"],
+        "reasons": ["My little sister", "Seeing the mountains next summer"],
+    }
+    if not (await db.execute(select(SafetyPlan.id).where(SafetyPlan.user_id == demo.id))).first():
+        db.add(SafetyPlan(user_id=demo.id, content=json.dumps(plan)))
+    await db.commit()
 
 
 DEMO_PEERS = 36

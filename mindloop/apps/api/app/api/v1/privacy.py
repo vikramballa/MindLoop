@@ -36,7 +36,9 @@ async def delete_account(body: DeleteAccountRequest, user: User, db: DB) -> None
 
 @router.delete("/data/{scope}", response_model=DeletedResponse)
 async def delete_scope(
-    scope: Literal["conversations", "journal", "transcripts", "memory", "checkins"], user: User, db: DB
+    scope: Literal["conversations", "journal", "transcripts", "memory", "checkins", "reflections", "safety_plan"],
+    user: User,
+    db: DB,
 ) -> DeletedResponse:
     return DeletedResponse(deleted=await PrivacyService(db).delete_scope(user.id, scope))
 

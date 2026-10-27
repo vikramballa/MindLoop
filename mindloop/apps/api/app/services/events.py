@@ -27,6 +27,8 @@ ANALYTICS_EVENTS = frozenset(
         "calm_tool_used",
         "reach_out_shared",
         "recap_shared",
+        "reflection_saved",
+        "report_viewed",
     }
 )
 CLIENT_EVENTS = frozenset(
@@ -38,6 +40,7 @@ CLIENT_EVENTS = frozenset(
         "calm_tool_used",
         "reach_out_shared",
         "recap_shared",
+        "report_viewed",
     }
 )
 _ALLOWED_PROPS = frozenset(

@@ -85,6 +85,23 @@ SupportNeeded = Literal["practical", "emotional", "information", "connection", "
 FeedbackRating = Literal["a_lot", "a_little", "not_really", "worse"]
 FEEDBACK_SCORE: dict[str, int] = {"a_lot": 2, "a_little": 1, "not_really": 0, "worse": -2}
 
+# Common thinking traps from CBT, offered as optional labels in a thought reframe.
+Distortion = Literal[
+    "all_or_nothing",
+    "catastrophizing",
+    "mind_reading",
+    "fortune_telling",
+    "overgeneralizing",
+    "labeling",
+    "should_statements",
+    "emotional_reasoning",
+    "discounting_positive",
+    "personalizing",
+    "mental_filter",
+    "comparing",
+]
+DISTORTIONS: tuple[str, ...] = get_args(Distortion)
+
 AgeRange = Literal["18-21", "22-25", "26-30", "31+"]
 Occupation = Literal["student", "working", "both", "other"]
 SupportStyle = Literal["practical", "reflective", "mixed"]

@@ -23,7 +23,9 @@ from app.models import (
     InterventionFeedback,
     JournalEntry,
     MemoryItem,
+    Reflection,
     SafetyEvent,
+    SafetyPlan,
     StructuredSignal,
     UserPattern,
     VoiceSession,
@@ -34,6 +36,7 @@ from app.repositories.users import UserRepository
 from app.services.errors import InvalidInput, NotFound, Unauthorized
 from app.services.events import EventService
 from app.services.profile import ProfileService
+from app.services.reflections import ReflectionService, SafetyPlanService
 
 
 def _rows(objs: list[Any], fields: list[str]) -> list[dict[str, Any]]:
@@ -73,6 +76,8 @@ class PrivacyService:
             by_session.setdefault(m.session_id, []).append(
                 {"role": m.role, "content": m.content, "source": m.source, "created_at": m.created_at.isoformat()}
             )
+        reflections = await ReflectionService(self.db).list(user_id, None, limit=10_000)
+        plan = await SafetyPlanService(self.db).get(user_id)
         self.events.audit("data_exported", user_id, "user")
         await self.db.commit()
         return {
@@ -140,6 +145,8 @@ class PrivacyService:
             ),
             "memory": _rows(await self._all(MemoryItem, user_id), ["id", "kind", "content", "created_at"]),
             "patterns": _rows(await self._all(UserPattern, user_id), ["kind", "key", "statement_key", "evidence"]),
+            "reflections": [r.model_dump(mode="json") for r in reflections],
+            "safety_plan": plan.model_dump(mode="json") if plan.updated_at else None,
             "safety_events": _rows(
                 await self._all(SafetyEvent, user_id), ["risk_level", "categories", "action_taken", "created_at"]
             ),
@@ -161,6 +168,12 @@ class PrivacyService:
             n = await convos.delete_all_sessions(user_id)
         elif scope == "journal":
             n = await CheckInRepository(self.db).delete_journal(user_id)
+            n += await self._delete_reflections(user_id)
+        elif scope == "reflections":
+            n = await self._delete_reflections(user_id)
+        elif scope == "safety_plan":
+            res = await self.db.execute(delete(SafetyPlan).where(SafetyPlan.user_id == user_id))
+            n = res.rowcount or 0  # type: ignore[attr-defined]
         elif scope == "transcripts":
             n = await convos.clear_transcripts(user_id)
         elif scope == "memory":
@@ -215,5 +228,10 @@ class PrivacyService:
             await convos.clear_transcripts(user_id)
         elif consent_type == "store_journal":
             await CheckInRepository(self.db).delete_journal(user_id)
+            await self._delete_reflections(user_id)
         elif consent_type == "analytics":
             await self.db.execute(delete(AnalyticsEvent).where(AnalyticsEvent.user_id == user_id))
+
+    async def _delete_reflections(self, user_id: uuid.UUID) -> int:
+        res = await self.db.execute(delete(Reflection).where(Reflection.user_id == user_id))
+        return res.rowcount or 0  # type: ignore[attr-defined]

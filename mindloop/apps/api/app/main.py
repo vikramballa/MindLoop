@@ -18,6 +18,7 @@ from app.api.v1 import (
     patterns,
     privacy,
     profile,
+    reflections,
     resources,
     safety,
     voice,
@@ -121,6 +122,7 @@ def create_app() -> FastAPI:
         safety,
         resources,
         privacy,
+        reflections,
         analytics,
         meta,
     ):
