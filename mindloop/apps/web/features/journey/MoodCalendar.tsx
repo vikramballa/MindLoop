@@ -36,7 +36,7 @@ export function MoodCalendar({ blooms }: { blooms: Bloom[] }) {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <p className="font-serif text-2xl leading-none text-ink">
+          <p className="font-display text-2xl leading-none text-ink">
             {first.toLocaleDateString(language, { month: "long", year: first.getFullYear() !== now.getFullYear() ? "numeric" : undefined })}
           </p>
           <p className="mt-1 text-xs text-ink-faint">{t("journey.monthLogged", { count: logged })}</p>

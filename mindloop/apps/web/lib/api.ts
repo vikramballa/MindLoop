@@ -10,6 +10,7 @@ import type {
   CheckInSummary,
   ContextProfileUpdate,
   FeedbackRating,
+  GratitudeCreate,
   HomeResponse,
   LibraryItem,
   MeResponse,
@@ -19,7 +20,13 @@ import type {
   PatternsResponse,
   PreferencesUpdate,
   ProfileResponse,
+  ReflectionOut,
+  ReflectionResult,
+  ReflectionStats,
+  ReframeCreate,
   ResourcesResponse,
+  SafetyPlanBody,
+  SafetyPlanOut,
   SessionOut,
   TalkEvent,
   TokenResponse,
@@ -131,6 +138,36 @@ async function* sse(path: string, body: unknown, signal?: AbortSignal): AsyncGen
   }
 }
 
+const PAGE = 100;
+
+/**
+ * Every check-in on or after `from` (YYYY-MM-DD), newest first. The history endpoint pages by an
+ * exclusive `before` date, so each page re-asks from the day after its oldest entry (to pick up the
+ * rest of a day cut off mid-page) and duplicates are dropped by id.
+ */
+async function historySince(from: string, signal?: AbortSignal): Promise<CheckInSummary[]> {
+  const seen = new Map<string, CheckInSummary>();
+  let before: string | null = null;
+  for (let i = 0; i < 20; i++) {
+    const page: CheckInSummary[] = await json<CheckInSummary[]>(`/checkins?limit=${PAGE}${before ? `&before=${before}` : ""}`, { signal });
+    let added = 0;
+    for (const c of page) {
+      if (!seen.has(c.id)) {
+        seen.set(c.id, c);
+        added++;
+      }
+    }
+    const oldest: string | undefined = page.at(-1)?.local_date;
+    if (page.length < PAGE || !oldest || oldest < from) break;
+    const d: Date = new Date(`${oldest}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + 1);
+    const dayAfter: string = d.toISOString().slice(0, 10);
+    // No progress means a single day holds a full page; step past it rather than loop.
+    before = added === 0 || before === dayAfter ? oldest : dayAfter;
+  }
+  return [...seen.values()].filter((c) => c.local_date >= from);
+}
+
 export const api = {
   // auth
   register: (body: { email: string; password: string; country: string; language: string; accept_terms: boolean }) =>
@@ -152,6 +189,7 @@ export const api = {
   createCheckIn: (body: CheckInCreate) => json<CheckInResult>("/checkins", { method: "POST", body }),
   checkIn: (id: string, signal?: AbortSignal) => json<CheckInResult>(`/checkins/${id}`, { signal }),
   history: (signal?: AbortSignal, limit = 14) => json<CheckInSummary[]>(`/checkins?limit=${limit}`, { signal }),
+  historySince,
 
   // interventions
   library: (signal?: AbortSignal) => json<LibraryItem[]>("/interventions", { signal }),
@@ -176,6 +214,17 @@ export const api = {
     return json<VoiceStatus>("/voice", { method: "POST", form });
   },
   voice: (id: string, signal?: AbortSignal) => json<VoiceStatus>(`/voice/${id}`, { signal }),
+
+  // reflect & safety plan
+  reflections: (signal?: AbortSignal, kind?: "reframe" | "gratitude", limit = 30) =>
+    json<ReflectionOut[]>(`/reflections?limit=${limit}${kind ? `&kind=${kind}` : ""}`, { signal }),
+  reflectionStats: (signal?: AbortSignal) => json<ReflectionStats>("/reflections/stats", { signal }),
+  createReflection: (body: ReframeCreate | GratitudeCreate) =>
+    json<ReflectionResult>("/reflections", { method: "POST", body }),
+  deleteReflection: (id: string) => json<void>(`/reflections/${id}`, { method: "DELETE" }),
+  safetyPlan: (signal?: AbortSignal) => json<SafetyPlanOut>("/safety-plan", { signal }),
+  saveSafetyPlan: (body: SafetyPlanBody) => json<SafetyPlanOut>("/safety-plan", { method: "PUT", body }),
+  deleteSafetyPlan: () => json<void>("/safety-plan", { method: "DELETE" }),
 
   // patterns & support
   patterns: (signal?: AbortSignal) => json<PatternsResponse>("/patterns", { signal }),

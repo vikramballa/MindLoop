@@ -27,7 +27,7 @@ export default function MetricsPage() {
         {tiles.map(([k, v]) => (
           <div key={k} className="rounded-2xl border border-line bg-surface px-4 py-3">
             <p className="text-xs text-ink-faint">{k.replaceAll("_", " ")}</p>
-            <p className="mt-1 font-serif text-3xl tabular-nums">{v === null ? "—" : String(v)}</p>
+            <p className="mt-1 font-display text-3xl tabular-nums">{v === null ? "—" : String(v)}</p>
           </div>
         ))}
       </div>

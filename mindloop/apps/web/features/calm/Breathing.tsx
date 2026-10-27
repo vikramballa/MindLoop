@@ -140,11 +140,11 @@ export function Breathing({
         <div className="relative text-center" aria-live="polite">
           {running ? (
             <>
-              <p className="font-serif text-3xl text-[#1e1a26]">{t(`calm.breathe.${phase.kind}`)}</p>
+              <p className="font-display text-3xl text-[#1e1a26]">{t(`calm.breathe.${phase.kind}`)}</p>
               <p className="mt-1 text-4xl font-semibold tabular-nums text-[#1e1a26]/70">{Math.max(left, 1)}</p>
             </>
           ) : finished ? (
-            <p className="max-w-40 font-serif text-2xl leading-tight text-[#1e1a26]">{t("calm.breathe.done")}</p>
+            <p className="max-w-40 font-display text-2xl leading-tight text-[#1e1a26]">{t("calm.breathe.done")}</p>
           ) : null}
         </div>
       </div>

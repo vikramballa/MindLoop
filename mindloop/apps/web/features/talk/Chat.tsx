@@ -173,7 +173,7 @@ export function Chat() {
     <div className="flex min-h-[calc(100dvh-12rem)] flex-col gap-4">
       <header className="animate-rise flex items-start justify-between gap-3 px-1">
         <div>
-          <h1 className="font-serif text-[2.6rem] leading-none tracking-[-0.02em] text-ink">{t("talk.title")}</h1>
+          <h1 className="font-display text-[2.6rem] leading-none tracking-[-0.035em] text-ink">{t("talk.title")}</h1>
           <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-faint">{t("talk.intro")}</p>
         </div>
         {!empty && items !== null && (
@@ -203,7 +203,7 @@ export function Chat() {
                 />
                 <LogoMark className="relative h-16 w-16 animate-orb" />
               </div>
-              <p className="mt-5 font-serif text-3xl text-ink">{t("talk.emptyTitle")}</p>
+              <p className="mt-5 font-display text-3xl text-ink">{t("talk.emptyTitle")}</p>
               <p className="mt-1 text-sm text-ink-soft">{t("talk.empty")}</p>
             </div>
             <ul className="mt-7 grid gap-2 sm:grid-cols-2">

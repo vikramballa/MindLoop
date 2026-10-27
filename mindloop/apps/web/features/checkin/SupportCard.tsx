@@ -38,9 +38,14 @@ export function SupportCard({ support, className }: { support: SupportResponse; 
         </ul>
       )}
       {support.ai_notice && <p className="mt-4 text-sm text-ink-soft">{support.ai_notice}</p>}
-      <Link href="/support" className="mt-3 inline-block text-sm font-medium text-care underline underline-offset-4">
-        {t("nav.support")}
-      </Link>
+      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+        <Link href="/safety-plan" className="text-sm font-semibold text-care underline underline-offset-4">
+          {t("safetyPlan.cardTitle")}
+        </Link>
+        <Link href="/support" className="text-sm font-medium text-care underline underline-offset-4">
+          {t("nav.support")}
+        </Link>
+      </div>
     </section>
   );
 }

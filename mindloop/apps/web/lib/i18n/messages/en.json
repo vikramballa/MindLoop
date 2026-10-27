@@ -17,7 +17,14 @@
     "profile": "You",
     "support": "Get help",
     "main": "Main navigation",
-    "journey": "Journey"
+    "journey": "Journey",
+    "reflect": "Reflect",
+    "safetyPlan": "Safety plan",
+    "report": "Report",
+    "search": "Search",
+    "groupDaily": "Daily",
+    "groupTools": "Tools",
+    "groupYou": "You"
   },
   "landing": {
     "start": "Start — it's free",
@@ -46,7 +53,11 @@
     "f4Title": "See your patterns",
     "f4": "A mood calendar and plain-language insights, like what tends to lift or lower your days.",
     "f5Title": "A question a day",
-    "f5": "One small reflection prompt each day. Answer in a sentence — or don't."
+    "f5": "One small reflection prompt each day. Answer in a sentence — or don't.",
+    "f6Title": "Untangle a thought",
+    "f6": "A guided thought record from CBT: spot the thinking trap, weigh the evidence, and watch how true it feels change.",
+    "f7Title": "A plan for hard moments",
+    "f7": "Build your own safety plan — warning signs, what helps, who to call — with your local helplines one tap away."
   },
   "auth": {
     "signInTitle": "Welcome back",
@@ -347,7 +358,13 @@
       "sleep": "Wind down",
       "sleepSub": "4-7-8 breathing",
       "actions": "Small actions",
-      "actionsSub": "2–15 min"
+      "actionsSub": "2–15 min",
+      "reframe": "Reframe",
+      "reframeSub": "Untangle a thought",
+      "gratitude": "Good things",
+      "gratitudeSub": "Three, however small",
+      "plan": "Safety plan",
+      "planSub": "For hard moments"
     },
     "pulseTitle": "You're not alone",
     "pulsePeople": "{count} people checked in today",
@@ -368,7 +385,10 @@
       "night": "For tonight"
     },
     "planted": "{count} plants so far",
-    "weekNone": "Nothing planted this week yet"
+    "weekNone": "Nothing planted this week yet",
+    "reflectTitle": "Reflect",
+    "reflectSub": "Two short exercises that help thoughts feel lighter.",
+    "searchHint": "Search anything"
   },
   "calm": {
     "title": "Calm",
@@ -523,6 +543,18 @@
       "system": "Auto",
       "light": "Light",
       "dark": "Dark"
+    },
+    "reflectLink": "Reflect & journal",
+    "safetyPlanLink": "My safety plan",
+    "reportLink": "Wellbeing report",
+    "accent": "Accent colour",
+    "accents": {
+      "iris": "Iris",
+      "lime": "Lime",
+      "mint": "Mint",
+      "sunset": "Sunset",
+      "ocean": "Ocean",
+      "rose": "Rose"
     }
   },
   "privacy": {
@@ -531,7 +563,7 @@
     "consentsTitle": "What MindLoop keeps",
     "consent": {
       "data_processing": "Process my check-ins to provide the service (required)",
-      "store_journal": "Keep my typed notes",
+      "store_journal": "Keep my typed notes and journal entries",
       "store_transcripts": "Keep transcripts of voice messages (audio is never kept)",
       "memory": "Remember helpful things I share across conversations",
       "analytics": "Share anonymous usage counts to improve MindLoop"
@@ -545,10 +577,12 @@
     "deleteTitle": "Delete data",
     "deleteScope": {
       "conversations": "Delete all conversations",
-      "journal": "Delete all typed notes",
+      "journal": "Delete all typed notes and journal entries",
       "transcripts": "Delete all voice transcripts",
       "memory": "Delete everything MindLoop remembers",
-      "checkins": "Delete all check-ins and patterns"
+      "checkins": "Delete all check-ins and patterns",
+      "reflections": "Delete all journal entries (reframes, good things)",
+      "safety_plan": "Delete my safety plan"
     },
     "confirm": "This can't be undone. Continue?",
     "deleted": "Deleted.",
@@ -591,7 +625,9 @@
     "momentsTitle": "Moments",
     "momentsNote": "Moments only ever add up. Nothing to keep up with, nothing to lose.",
     "showAll": "Show all {count}",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "reportCta": "Make a wellbeing report",
+    "reportSub": "A printable one-page summary you can keep or share with a counsellor."
   },
   "moments": {
     "first": {
@@ -686,5 +722,260 @@
     "What's a place that calms you down?",
     "What do you wish people knew about how you're doing?",
     "What can wait until tomorrow?"
-  ]
+  ],
+  "reflect": {
+    "title": "Reflect",
+    "eyebrow": "Guided journal",
+    "intro": "Two short exercises drawn from cognitive behavioural therapy and positive psychology. What you write is encrypted, and only you can see it.",
+    "reframeTitle": "Reframe a thought",
+    "reframeSub": "When a thought is weighing on you, slow it down and look at it from another angle.",
+    "reframeCta": "Start a reframe",
+    "reframeTime": "About 5 min",
+    "gratitudeTitle": "Three good things",
+    "gratitudeSub": "Write down up to three things that went well today, however small.",
+    "gratitudeCta": "Write them down",
+    "gratitudeTime": "About 2 min",
+    "statsLabel": "Your practice",
+    "statsReframes": "Thoughts reframed",
+    "statsShift": "Avg. shift (pts)",
+    "statsShiftValue": "−{value}",
+    "statsGood": "Good things noticed",
+    "topTraps": "Traps you spot most",
+    "historyTitle": "Your entries",
+    "filter": {
+      "all": "All",
+      "reframe": "Reframes",
+      "gratitude": "Good things"
+    },
+    "empty": "Nothing here yet. Your entries will show up here.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this entry? This can't be undone.",
+    "believed": "{before}% → {after}% believable",
+    "journalOff": "Saving journal entries is turned off in your privacy settings, so nothing written here can be kept.",
+    "journalOffCta": "Privacy settings",
+    "notTherapy": "These are self-help exercises, not therapy. If things feel too heavy, talk to someone you trust or a professional.",
+    "situation": "What happened",
+    "thought": "The thought",
+    "evidenceFor": "Supporting it",
+    "evidenceAgainst": "Not fitting it",
+    "balanced": "A more balanced view",
+    "why": "Why they happened",
+    "before": "Before",
+    "after": "After",
+    "traps": "Thinking traps"
+  },
+  "reframe": {
+    "eyebrow": "Reframe · step {current} of {total}",
+    "situationTitle": "What happened?",
+    "situationHint": "Just the facts, the way a camera would see it.",
+    "situationPlaceholder": "e.g. My friend didn't reply to my message all day.",
+    "thoughtTitle": "What went through your mind?",
+    "thoughtHint": "Write the thought that stings the most, in your own words.",
+    "thoughtPlaceholder": "e.g. They don't really care about me.",
+    "beliefLabel": "How true does it feel right now?",
+    "trapsTitle": "Spot any thinking traps?",
+    "trapsHint": "Minds take shortcuts, especially under stress. Tap any that fit, or skip if none do.",
+    "trapsMax": "Pick up to {max}.",
+    "evidenceTitle": "Look at the evidence",
+    "forLabel": "What supports the thought?",
+    "forPlaceholder": "Facts, not feelings.",
+    "againstLabel": "What doesn't fit with it?",
+    "againstPlaceholder": "Anything that points the other way?",
+    "balancedTitle": "A more balanced view",
+    "balancedHint": "What would you say to a good friend who had this thought?",
+    "balancedPlaceholder": "e.g. They're probably busy. One quiet day doesn't mean they don't care.",
+    "beliefAfterLabel": "How true does the original thought feel now?",
+    "next": "Next",
+    "skip": "Skip",
+    "save": "Save reframe",
+    "doneEyebrow": "Reframe saved",
+    "doneTitle": "Nicely done.",
+    "doneBody": "Looking closely at a thought is a skill, and you just practised it.",
+    "shift": "It went from {before}% to {after}% believable.",
+    "shiftNone": "Even if it still feels true, you looked at it more closely. That counts.",
+    "back": "Back to Reflect",
+    "another": "Reframe another thought"
+  },
+  "distortions": {
+    "all_or_nothing": {
+      "label": "All-or-nothing",
+      "desc": "Seeing things as total success or total failure."
+    },
+    "catastrophizing": {
+      "label": "Catastrophising",
+      "desc": "Jumping straight to the worst outcome."
+    },
+    "mind_reading": {
+      "label": "Mind reading",
+      "desc": "Assuming you know what others are thinking."
+    },
+    "fortune_telling": {
+      "label": "Fortune telling",
+      "desc": "Predicting that things will go badly."
+    },
+    "overgeneralizing": {
+      "label": "Overgeneralising",
+      "desc": "One event turns into “always” or “never”."
+    },
+    "labeling": {
+      "label": "Labelling",
+      "desc": "Calling yourself a name instead of describing what happened."
+    },
+    "should_statements": {
+      "label": "Shoulds",
+      "desc": "Rigid rules about how you or others must be."
+    },
+    "emotional_reasoning": {
+      "label": "Emotional reasoning",
+      "desc": "“I feel it, so it must be true.”"
+    },
+    "discounting_positive": {
+      "label": "Discounting the good",
+      "desc": "Brushing off what went well."
+    },
+    "personalizing": {
+      "label": "Personalising",
+      "desc": "Taking the blame for things outside your control."
+    },
+    "mental_filter": {
+      "label": "Mental filter",
+      "desc": "Only noticing the negatives."
+    },
+    "comparing": {
+      "label": "Comparing",
+      "desc": "Measuring yourself against other people's highlights."
+    }
+  },
+  "gratitude": {
+    "eyebrow": "Three good things",
+    "title": "What went well today?",
+    "hint": "Small counts. A good cup of chai, a kind message, a moment of sun.",
+    "label": "Good thing {n}",
+    "whyLabel": "Why do you think they happened? (optional)",
+    "whyPlaceholder": "Noticing your part in good moments helps them stick.",
+    "save": "Save",
+    "doneEyebrow": "Saved",
+    "doneTitle": "Noted.",
+    "doneBody": "Pausing on the good stuff trains your attention to find it more often.",
+    "placeholder1": "Something that went well…",
+    "placeholder2": "Someone who made it better…",
+    "placeholder3": "A small moment you enjoyed…"
+  },
+  "safetyPlan": {
+    "title": "My safety plan",
+    "eyebrow": "For hard moments",
+    "intro": "A plan you make while you're feeling steady, to use when things get hard. It follows the Stanley-Brown safety plan that many counsellors use. It's encrypted, and only you can see it.",
+    "steps": {
+      "warning_signs": {
+        "title": "Warning signs",
+        "hint": "Thoughts, feelings or situations that tell me a hard moment might be coming.",
+        "placeholder": "e.g. I stop replying to people"
+      },
+      "coping": {
+        "title": "Things I can do on my own",
+        "hint": "Ways to take my mind off things without contacting anyone.",
+        "placeholder": "e.g. Cold shower, then a walk"
+      },
+      "distractions": {
+        "title": "People and places that give me a break",
+        "hint": "Somewhere to go or someone to be around, without having to talk about it.",
+        "placeholder": "e.g. The library café"
+      },
+      "people": {
+        "title": "People I can ask for help",
+        "hint": "Someone I trust and can tell how I'm really doing."
+      },
+      "professionals": {
+        "title": "Professionals I can contact",
+        "hint": "A counsellor, doctor or service. The helplines below are always here too."
+      },
+      "safe_environment": {
+        "title": "Making my space safer",
+        "hint": "Ways to keep myself safe, like putting things out of reach or asking someone to hold onto them.",
+        "placeholder": "e.g. Leave my phone outside the room at night"
+      },
+      "reasons": {
+        "title": "What matters most to me",
+        "hint": "The people, plans and small things worth holding on for.",
+        "placeholder": "e.g. My little sister"
+      }
+    },
+    "add": "Add",
+    "remove": "Remove {item}",
+    "namePlaceholder": "Name",
+    "phonePlaceholder": "Phone (optional)",
+    "edit": "Edit plan",
+    "save": "Save plan",
+    "saved": "Saved. Your plan is here whenever you need it.",
+    "cancel": "Cancel",
+    "empty": "You haven't made a plan yet. It takes about ten minutes, and you can fill in as much or as little as you like.",
+    "start": "Make my plan",
+    "updated": "Updated {date}",
+    "call": "Call",
+    "nothing": "Nothing added yet.",
+    "helplines": "Helplines",
+    "helplinesHint": "If you're in danger right now, call your local emergency number.",
+    "print": "Print",
+    "delete": "Delete plan",
+    "deleteConfirm": "Delete your safety plan? This can't be undone.",
+    "cardTitle": "Your safety plan",
+    "cardSub": "Your own steps for getting through a hard moment."
+  },
+  "report": {
+    "eyebrow": "Wellbeing report",
+    "title": "The last {days} days",
+    "intro": "A one-page summary of what you've logged, to keep for yourself or bring to a counsellor or doctor if you'd like. It shows what you reported. It isn't an assessment.",
+    "print": "Print or save as PDF",
+    "rangeLabel": "Period",
+    "range": {
+      "14": "14 days",
+      "30": "30 days",
+      "90": "90 days"
+    },
+    "checkins": "Check-ins",
+    "days": "Days logged",
+    "avgMood": "Average mood",
+    "avgStress": "Average stress",
+    "avgSleep": "Average sleep",
+    "moodLine": "Mood over time",
+    "moodDist": "How often each mood came up",
+    "feelings": "Feelings named most",
+    "topics": "What it was about",
+    "patterns": "Patterns you might notice",
+    "practice": "Reflection practice",
+    "reframes": "Thoughts reframed",
+    "gratitude": "Good things noted",
+    "shift": "Average shift in belief (pts)",
+    "noData": "Nothing was logged in this period.",
+    "scale": "Mood 1 (really low) to 5 (great). Stress 1 to 5.",
+    "generated": "Made with MindLoop on {date}. Based only on what the person chose to log. Not a medical record, assessment or diagnosis.",
+    "back": "Back to Journey"
+  },
+  "palette": {
+    "open": "Search",
+    "label": "Search MindLoop",
+    "placeholder": "Search pages, tools and actions…",
+    "empty": "No matches. Try “breathe” or “journal”.",
+    "groups": {
+      "go": "Go to",
+      "do": "Do something",
+      "settings": "Settings"
+    },
+    "close": "Close search",
+    "navigate": "to move",
+    "select": "to open",
+    "items": {
+      "checkin": "Check in",
+      "reframe": "Reframe a thought",
+      "gratitude": "Three good things",
+      "breatheSigh": "Breathe: physiological sigh",
+      "breathe478": "Breathe: 4-7-8 for sleep",
+      "breatheBox": "Breathe: box breathing",
+      "ground": "5-4-3-2-1 grounding",
+      "sounds": "Ambient sounds",
+      "reach": "Text a friend",
+      "theme": "Switch light or dark mode",
+      "export": "Export my data"
+    }
+  }
 }

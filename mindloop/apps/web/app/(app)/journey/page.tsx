@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { LockIcon, SparkIcon } from "@/components/icons";
+import Link from "next/link";
+import { ChevronRightIcon, LockIcon, ReportIcon, SparkIcon } from "@/components/icons";
 import { MoodFace } from "@/components/MoodFace";
 import { Card, Notice, PageHeader, PageSkeleton, SectionTitle, Segmented, cn, stagger } from "@/components/ui";
 import { Garden } from "@/features/journey/Garden";
@@ -154,6 +155,17 @@ export default function JourneyPage() {
 
       <WeeklyRecap />
 
+      <Link href="/journey/report" className="card lift group flex items-center gap-4 p-5">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-accent text-on-accent">
+          <ReportIcon className="h-5 w-5" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-ink">{t("journey.reportCta")}</span>
+          <span className="block text-sm text-ink-soft">{t("journey.reportSub")}</span>
+        </span>
+        <ChevronRightIcon className="h-5 w-5 shrink-0 text-ink-faint transition-transform group-hover:translate-x-0.5" />
+      </Link>
+
       <RecentList history={history} />
     </div>
   );
@@ -180,7 +192,7 @@ function Stat({
     <div className={cn("card animate-rise flex flex-col p-4", big && "bg-feature text-on-feature", className)} style={stagger(i)}>
       <p className={cn("text-[13px] font-medium", big ? "opacity-70" : "text-ink-faint")}>{label}</p>
       <div className="mt-1 flex items-center gap-2">
-        <p className={cn("font-serif leading-none tabular-nums", big ? "text-[4.5rem]" : "text-[2rem]")}>{value}</p>
+        <p className={cn("font-display leading-none tabular-nums", big ? "text-[4.5rem]" : "text-[2rem]")}>{value}</p>
         {adornment}
       </div>
       {children}

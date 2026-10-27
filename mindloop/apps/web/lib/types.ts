@@ -28,6 +28,16 @@ export type VoiceStatus = S["VoiceStatus"];
 export type LibraryItem = S["LibraryItem"];
 export type ResourcesResponse = S["ResourcesResponse"];
 export type FeedbackRating = S["FeedbackRequest"]["rating"];
+export type ReframeCreate = S["ReframeCreate"];
+export type GratitudeCreate = S["GratitudeCreate"];
+// Responses always include defaulted fields, so the generated `?` markers are dropped here.
+export type ReflectionOut = Required<S["ReflectionOut"]>;
+export type ReflectionResult = Omit<S["ReflectionResult"], "reflection"> & { reflection: ReflectionOut };
+export type ReflectionStats = S["ReflectionStats"];
+export type Distortion = NonNullable<ReframeCreate["distortions"]>[number];
+export type SafetyPlanBody = Required<S["SafetyPlanBody"]>;
+export type SafetyPlanOut = Required<S["SafetyPlanOut"]>;
+export type Contact = S["Contact"];
 export type Topic = NonNullable<CheckInCreate["topics"]>[number];
 
 export type MemoryItem = { id: string; kind: string; content: string; created_at: string };

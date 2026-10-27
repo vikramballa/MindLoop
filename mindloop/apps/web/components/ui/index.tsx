@@ -127,7 +127,7 @@ export function PageHeader({
     <header className="animate-rise mb-7 flex flex-wrap items-end justify-between gap-3 px-1">
       <div className="max-w-xl">
         {eyebrow && <p className="mb-2 text-[13px] font-medium text-ink-faint">{eyebrow}</p>}
-        <h1 className="font-serif text-[2.6rem] leading-[1.02] tracking-[-0.02em] text-ink text-balance sm:text-5xl">{title}</h1>
+        <h1 className="font-display text-[2.6rem] leading-[1.02] tracking-[-0.035em] text-ink text-balance sm:text-5xl">{title}</h1>
         {intro && <p className="mt-3 max-w-[60ch] text-[15px] leading-relaxed text-ink-soft text-pretty">{intro}</p>}
       </div>
       {children}

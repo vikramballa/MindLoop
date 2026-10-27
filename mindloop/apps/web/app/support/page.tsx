@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Brand } from "@/components/AppShell";
+import { ChevronRightIcon, LifebuoyIcon } from "@/components/icons";
 import { Card, Field, Notice, PageHeader, Select, Skeleton } from "@/components/ui";
 import { COUNTRIES } from "@/features/auth/AuthForm";
 import { ResourceRow } from "@/features/checkin/SupportCard";
@@ -63,6 +64,16 @@ export default function SupportPage() {
           </ul>
         )}
         {data?.support_pathway_note && <p className="text-[15px] text-ink-soft">{data.support_pathway_note}</p>}
+        {user && (
+          <Link href="/safety-plan" className="flex items-center gap-3 rounded-2xl border border-line bg-raised px-4 py-3 transition-colors hover:bg-surface-2">
+            <LifebuoyIcon className="h-5 w-5 shrink-0 text-accent-fg" />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[15px] font-semibold text-ink">{t("safetyPlan.cardTitle")}</span>
+              <span className="block text-sm text-ink-soft">{t("safetyPlan.cardSub")}</span>
+            </span>
+            <ChevronRightIcon className="h-5 w-5 shrink-0 text-ink-faint" />
+          </Link>
+        )}
         <p className="text-sm text-ink-faint">{t("support.notice")}</p>
         <p className="text-xs text-ink-faint">{t("support.verified")}</p>
       </Card>

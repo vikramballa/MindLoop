@@ -53,14 +53,14 @@ export function Grounding({ onDone }: { onDone?: () => void }) {
           <p className="text-5xl" aria-hidden>
             🌿
           </p>
-          <p className="mx-auto max-w-xs font-serif text-3xl leading-tight text-ink">{t("calm.ground.done")}</p>
+          <p className="mx-auto max-w-xs font-display text-3xl leading-tight text-ink">{t("calm.ground.done")}</p>
           <Button variant="secondary" onClick={() => setStep(0)}>
             {t("calm.ground.restart")}
           </Button>
         </div>
       ) : (
         <>
-          <p key={step} className="animate-rise font-serif text-3xl leading-tight text-ink" aria-live="polite">
+          <p key={step} className="animate-rise font-display text-3xl leading-tight text-ink" aria-live="polite">
             {current.count} {t(`calm.ground.${current.key}`)}
           </p>
           <button

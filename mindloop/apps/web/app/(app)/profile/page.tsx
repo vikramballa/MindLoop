@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Avatar } from "@/components/AppShell";
-import { ChevronRightIcon, ConnectIcon, HeartIcon, JourneyIcon, ShieldIcon } from "@/components/icons";
+import { BookIcon, CheckIcon, ChevronRightIcon, ConnectIcon, HeartIcon, JourneyIcon, LifebuoyIcon, ReportIcon, ShieldIcon } from "@/components/icons";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import {
   Button,
@@ -25,30 +25,18 @@ import { api } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { SUPPORTED_LANGUAGES, useI18n } from "@/lib/i18n";
 import { blooms, moments, readCounters } from "@/lib/progress";
+import { ACCENTS, applyAccent, applyTheme, readAccent, readTheme, type Accent, type Theme } from "@/lib/theme";
 import type { ContextProfile, Preferences, ProfileResponse } from "@/lib/types";
 
 const LINKS = [
   { href: "/journey", key: "profile.patternsLink", Icon: JourneyIcon },
+  { href: "/reflect", key: "profile.reflectLink", Icon: BookIcon },
+  { href: "/safety-plan", key: "profile.safetyPlanLink", Icon: LifebuoyIcon },
+  { href: "/journey/report", key: "profile.reportLink", Icon: ReportIcon },
   { href: "/connect", key: "profile.connectLink", Icon: ConnectIcon },
   { href: "/privacy", key: "profile.privacyLink", Icon: ShieldIcon },
   { href: "/support", key: "profile.supportLink", Icon: HeartIcon },
 ];
-
-type Theme = "system" | "light" | "dark";
-
-function applyTheme(theme: Theme) {
-  try {
-    if (theme === "system") {
-      localStorage.removeItem("ml_theme");
-      delete document.documentElement.dataset.theme;
-    } else {
-      localStorage.setItem("ml_theme", theme);
-      document.documentElement.dataset.theme = theme;
-    }
-  } catch {
-    /* storage blocked: theme applies for this visit only */
-  }
-}
 
 export default function ProfilePage() {
   const { t, setLanguage } = useI18n();
@@ -60,6 +48,7 @@ export default function ProfilePage() {
   const [failed, setFailed] = useState(false);
   const [stats, setStats] = useState<{ days: number; checkins: number; moments: number } | null>(null);
   const [theme, setTheme] = useState<Theme>("system");
+  const [accent, setAccent] = useState<Accent>("iris");
   const [aboutOpen, setAboutOpen] = useState(false);
 
   useEffect(() => {
@@ -77,12 +66,10 @@ export default function ProfilePage() {
         setStats({ days: blooms(h).length, checkins: h.length, moments: moments(h, readCounters()).filter((m) => m.got).length }),
       )
       .catch(() => undefined);
-    try {
-      const saved = localStorage.getItem("ml_theme");
-      if (saved === "light" || saved === "dark") setTheme(saved); // eslint-disable-line react-hooks/set-state-in-effect
-    } catch {
-      /* storage blocked */
-    }
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time read of device settings after hydration */
+    setTheme(readTheme());
+    setAccent(readAccent());
+    /* eslint-enable react-hooks/set-state-in-effect */
     return () => controller.abort();
   }, []);
 
@@ -129,7 +116,7 @@ export default function ProfilePage() {
           mood={5}
           className="h-24 w-24 text-4xl shadow-[0_18px_40px_-16px_rgb(var(--shadow)/0.5)]"
         />
-        <h1 className="mt-5 font-serif text-[2.6rem] leading-none tracking-[-0.02em] text-ink">
+        <h1 className="mt-5 font-display text-[2.6rem] leading-none tracking-[-0.035em] text-ink">
           {profile.display_name || t("profile.title")}
         </h1>
         <p className="mt-2 text-sm text-ink-faint">{t(`countries.${profile.country}`)}</p>
@@ -147,7 +134,7 @@ export default function ProfilePage() {
             className="card animate-rise flex flex-col p-3.5 transition-transform active:scale-[0.97]"
             style={stagger(i + 1)}
           >
-            <span className="font-serif text-[2rem] leading-none tabular-nums text-ink">{v ?? "–"}</span>
+            <span className="font-display text-[2rem] leading-none tabular-nums text-ink">{v ?? "–"}</span>
             <span className="mt-1.5 text-[12px] leading-tight text-ink-faint">{t(k)}</span>
           </Link>
         ))}
@@ -183,6 +170,13 @@ export default function ProfilePage() {
               applyTheme(v);
             }}
             options={(["system", "light", "dark"] as const).map((v) => ({ value: v, label: t(`profile.theme.${v}`) }))}
+          />
+          <AccentPicker
+            value={accent}
+            onChange={(a) => {
+              setAccent(a);
+              applyAccent(a);
+            }}
           />
         </Card>
       </section>
@@ -375,6 +369,40 @@ export default function ProfilePage() {
         {t("auth.signOut")}
       </Button>
       <p className="pb-2 text-center text-xs text-ink-faint">{t("app.disclaimer")}</p>
+    </div>
+  );
+}
+
+export function AccentPicker({ value, onChange }: { value: Accent; onChange: (a: Accent) => void }) {
+  const t = useI18n().t;
+  return (
+    <div className="mt-5">
+      <p id="accent-label" className="mb-3 text-sm font-medium text-ink">
+        {t("profile.accent")}
+      </p>
+      <div role="radiogroup" aria-labelledby="accent-label" className="flex flex-wrap gap-3">
+        {(Object.keys(ACCENTS) as Accent[]).map((a) => {
+          const on = a === value;
+          return (
+            <button
+              key={a}
+              type="button"
+              role="radio"
+              aria-checked={on}
+              aria-label={t(`profile.accents.${a}`)}
+              title={t(`profile.accents.${a}`)}
+              onClick={() => onChange(a)}
+              className={cn(
+                "flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-200 active:scale-90",
+                on ? "ring-2 ring-ink ring-offset-2 ring-offset-[var(--surface)]" : "hover:scale-105",
+              )}
+              style={{ background: ACCENTS[a] }}
+            >
+              {on && <CheckIcon className={cn("h-5 w-5", a === "iris" ? "text-white" : "text-[#121217]")} strokeWidth={2.6} />}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

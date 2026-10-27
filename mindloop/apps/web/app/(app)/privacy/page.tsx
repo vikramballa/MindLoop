@@ -8,7 +8,7 @@ import { useT } from "@/lib/i18n";
 import type { MemoryItem } from "@/lib/types";
 
 const CONSENTS = ["data_processing", "store_journal", "store_transcripts", "memory", "analytics"];
-const SCOPES = ["conversations", "journal", "transcripts", "memory", "checkins"];
+const SCOPES = ["conversations", "journal", "reflections", "transcripts", "memory", "checkins", "safety_plan"];
 
 export default function PrivacyPage() {
   const t = useT();

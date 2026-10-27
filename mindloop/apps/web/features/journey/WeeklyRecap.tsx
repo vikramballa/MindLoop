@@ -90,7 +90,7 @@ export function WeeklyRecap() {
         style={{ background: "linear-gradient(135deg, var(--aura-a), var(--aura-b))" }}
       />
       <div className="relative">
-        <h2 className="font-serif text-3xl leading-none text-ink">{t("recap.title")}</h2>
+        <h2 className="font-display text-3xl leading-none text-ink">{t("recap.title")}</h2>
         <p className="mt-1 text-sm font-medium text-ink-soft">{t("recap.days", { count: recap.checkedIn })}</p>
         <ol className="mt-5 grid grid-cols-7 gap-1">
           {recap.days.map((d) => (
@@ -114,7 +114,7 @@ export function WeeklyRecap() {
         ) : (
           <p className="mt-5 text-sm text-ink-faint">{t("recap.noFeelings")}</p>
         )}
-        <p className="mt-5 font-serif text-2xl leading-tight text-ink">{t("recap.kind")}</p>
+        <p className="mt-5 font-display text-2xl leading-tight text-ink">{t("recap.kind")}</p>
         <Button variant="secondary" size="sm" className="mt-4" onClick={save}>
           <ShareIcon className="h-4 w-4" />
           {saved ? t("recap.shared") : t("recap.share")}

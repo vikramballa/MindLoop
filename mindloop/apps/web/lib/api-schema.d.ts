@@ -612,6 +612,77 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/reflections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Reflections */
+        get: operations["list_reflections_api_v1_reflections_get"];
+        put?: never;
+        /** Create Reflection */
+        post: operations["create_reflection_api_v1_reflections_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reflections/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Reflection Stats */
+        get: operations["reflection_stats_api_v1_reflections_stats_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reflections/{reflection_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Reflection */
+        delete: operations["delete_reflection_api_v1_reflections__reflection_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/safety-plan": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Safety Plan */
+        get: operations["get_safety_plan_api_v1_safety_plan_get"];
+        /** Save Safety Plan */
+        put: operations["save_safety_plan_api_v1_safety_plan_put"];
+        post?: never;
+        /** Delete Safety Plan */
+        delete: operations["delete_safety_plan_api_v1_safety_plan_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/analytics/events": {
         parameters: {
             query?: never;
@@ -850,6 +921,16 @@ export interface components {
             /** Granted */
             granted: boolean;
         };
+        /** Contact */
+        Contact: {
+            /** Name */
+            name: string;
+            /**
+             * Phone
+             * @default
+             */
+            phone: string;
+        };
         /**
          * ContextProfile
          * @description The user-editable cultural/context profile. Every field is optional and correctable.
@@ -956,6 +1037,24 @@ export interface components {
              * @enum {string}
              */
             rating: "a_lot" | "a_little" | "not_really" | "worse";
+        };
+        /**
+         * GratitudeCreate
+         * @description Three good things: up to three small things that went well, and optionally why.
+         */
+        GratitudeCreate: {
+            /**
+             * Kind
+             * @constant
+             */
+            kind: "gratitude";
+            /** Items */
+            items: string[];
+            /**
+             * Why
+             * @default
+             */
+            why: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -1196,6 +1295,108 @@ export interface components {
             /** People */
             people: number;
         };
+        /** ReflectionOut */
+        ReflectionOut: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "reframe" | "gratitude";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Situation */
+            situation?: string | null;
+            /** Thought */
+            thought?: string | null;
+            /** Belief Before */
+            belief_before?: number | null;
+            /** Distortions */
+            distortions?: string[];
+            /** Evidence For */
+            evidence_for?: string | null;
+            /** Evidence Against */
+            evidence_against?: string | null;
+            /** Balanced */
+            balanced?: string | null;
+            /** Belief After */
+            belief_after?: number | null;
+            /** Items */
+            items?: string[];
+            /** Why */
+            why?: string | null;
+        };
+        /** ReflectionResult */
+        ReflectionResult: {
+            reflection: components["schemas"]["ReflectionOut"];
+            /** @description Reviewed support text, present when what was written suggests risk */
+            support?: components["schemas"]["SupportResponse"] | null;
+        };
+        /** ReflectionStats */
+        ReflectionStats: {
+            /** Reframes */
+            reframes: number;
+            /** Gratitude */
+            gratitude: number;
+            /** Gratitude Items */
+            gratitude_items: number;
+            /**
+             * Avg Belief Shift
+             * @description Mean drop in belief (0-100) across completed reframes
+             */
+            avg_belief_shift: number | null;
+            /** Top Distortions */
+            top_distortions: string[];
+        };
+        /**
+         * ReframeCreate
+         * @description A CBT-style thought record: what happened, the thought, the evidence, and a kinder way to see it.
+         */
+        ReframeCreate: {
+            /**
+             * Kind
+             * @constant
+             */
+            kind: "reframe";
+            /**
+             * Situation
+             * @default
+             */
+            situation: string;
+            /** Thought */
+            thought: string;
+            /**
+             * Belief Before
+             * @description How true the thought felt, 0-100
+             */
+            belief_before?: number | null;
+            /** Distortions */
+            distortions?: ("all_or_nothing" | "catastrophizing" | "mind_reading" | "fortune_telling" | "overgeneralizing" | "labeling" | "should_statements" | "emotional_reasoning" | "discounting_positive" | "personalizing" | "mental_filter" | "comparing")[];
+            /**
+             * Evidence For
+             * @default
+             */
+            evidence_for: string;
+            /**
+             * Evidence Against
+             * @default
+             */
+            evidence_against: string;
+            /**
+             * Balanced
+             * @default
+             */
+            balanced: string;
+            /** Belief After */
+            belief_after?: number | null;
+        };
         /** RegisterRequest */
         RegisterRequest: {
             /**
@@ -1248,6 +1449,45 @@ export interface components {
             support_pathway_note: string | null;
             /** Available Countries */
             available_countries: string[];
+        };
+        /**
+         * SafetyPlanBody
+         * @description The six Stanley-Brown steps, plus the reasons that keep someone going.
+         */
+        SafetyPlanBody: {
+            /** Warning Signs */
+            warning_signs?: string[];
+            /** Coping */
+            coping?: string[];
+            /** Distractions */
+            distractions?: string[];
+            /** People */
+            people?: components["schemas"]["Contact"][];
+            /** Professionals */
+            professionals?: components["schemas"]["Contact"][];
+            /** Safe Environment */
+            safe_environment?: string[];
+            /** Reasons */
+            reasons?: string[];
+        };
+        /** SafetyPlanOut */
+        SafetyPlanOut: {
+            /** Warning Signs */
+            warning_signs?: string[];
+            /** Coping */
+            coping?: string[];
+            /** Distractions */
+            distractions?: string[];
+            /** People */
+            people?: components["schemas"]["Contact"][];
+            /** Professionals */
+            professionals?: components["schemas"]["Contact"][];
+            /** Safe Environment */
+            safe_environment?: string[];
+            /** Reasons */
+            reasons?: string[];
+            /** Updated At */
+            updated_at?: string | null;
         };
         /** SeriesPoint */
         SeriesPoint: {
@@ -2484,7 +2724,7 @@ export interface operations {
                 authorization?: string | null;
             };
             path: {
-                scope: "conversations" | "journal" | "transcripts" | "memory" | "checkins";
+                scope: "conversations" | "journal" | "transcripts" | "memory" | "checkins" | "reflections" | "safety_plan";
             };
             cookie?: never;
         };
@@ -2634,6 +2874,232 @@ export interface operations {
                         [key: string]: boolean;
                     };
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_reflections_api_v1_reflections_get: {
+        parameters: {
+            query?: {
+                kind?: ("reframe" | "gratitude") | null;
+                limit?: number;
+            };
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReflectionOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_reflection_api_v1_reflections_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReframeCreate"] | components["schemas"]["GratitudeCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReflectionResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reflection_stats_api_v1_reflections_stats_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReflectionStats"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_reflection_api_v1_reflections__reflection_id__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                reflection_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_safety_plan_api_v1_safety_plan_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SafetyPlanOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_safety_plan_api_v1_safety_plan_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SafetyPlanBody"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SafetyPlanOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_safety_plan_api_v1_safety_plan_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

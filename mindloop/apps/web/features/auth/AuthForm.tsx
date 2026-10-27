@@ -50,7 +50,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <MoodFace key={m} mood={m} className="h-10 w-10 animate-float" style={{ animationDelay: `${-i * 0.7}s` }} />
         ))}
       </div>
-      <h1 className="animate-rise font-serif text-[2.8rem] leading-none tracking-[-0.02em] text-ink" style={stagger(1)}>
+      <h1 className="animate-rise font-display text-[2.8rem] leading-none tracking-[-0.035em] text-ink" style={stagger(1)}>
         {register ? t("auth.registerTitle") : t("auth.signInTitle")}
       </h1>
       <p className="animate-rise mt-3 text-[15px] text-ink-soft" style={stagger(2)}>

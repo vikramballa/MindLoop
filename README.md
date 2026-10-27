@@ -12,7 +12,7 @@ so nothing you write is sent to a third-party service.
 
 <table>
   <tr>
-    <td><img src="mindloop/docs/screenshots/home.png" width="200" alt="Today screen with the latest check-in and a suggested action"></td>
+    <td><img src="mindloop/docs/screenshots/home.png" width="200" alt="Today screen with a check-in card, today's question and quick resets"></td>
     <td><img src="mindloop/docs/screenshots/check-in.png" width="200" alt="Check-in screen asking how you are"></td>
     <td><img src="mindloop/docs/screenshots/journey.png" width="200" alt="Journey screen with totals and a garden"></td>
     <td><img src="mindloop/docs/screenshots/calm.png" width="200" alt="Calm screen with breathing exercises"></td>
@@ -24,6 +24,20 @@ so nothing you write is sent to a third-party service.
     <td align="center">Journey</td>
     <td align="center">Calm</td>
     <td align="center">Talk</td>
+  </tr>
+  <tr>
+    <td><img src="mindloop/docs/screenshots/reflect.png" width="200" alt="Reflect screen with the thought reframe and three good things exercises"></td>
+    <td><img src="mindloop/docs/screenshots/reframe.png" width="200" alt="Thought reframe step asking which thinking traps fit"></td>
+    <td><img src="mindloop/docs/screenshots/safety-plan.png" width="200" alt="Personal safety plan with warning signs and coping steps"></td>
+    <td><img src="mindloop/docs/screenshots/report.png" width="200" alt="Printable wellbeing report for the last 30 days"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center">Reflect</td>
+    <td align="center">Reframe a thought</td>
+    <td align="center">Safety plan</td>
+    <td align="center">Report</td>
+    <td></td>
   </tr>
 </table>
 
@@ -41,17 +55,35 @@ so nothing you write is sent to a third-party service.
   account.
 - **Talk.** Chat by text or voice with an AI companion that knows its limits and points you to real
   people when that's what you need.
+- **Reframe a thought.** A guided CBT thought record, one question per screen: what happened, the
+  thought and how true it feels, which thinking traps fit (12 common ones, each explained), the
+  evidence both ways and a more balanced view. Re-rating the thought at the end shows the shift.
+- **Three good things.** A two-minute positive-psychology exercise: note up to three things that
+  went well and, if you like, why.
+- **Personal safety plan.** Build your own plan using the Stanley-Brown structure: what matters most,
+  warning signs, things that help, people and places, who to call (with tap-to-call) and how to make
+  your space safer, with your country's verified helplines underneath. It's linked from every
+  crisis card and from Get help.
+- **Wellbeing report.** A printable one-page summary of the last 14, 30 or 90 days (averages, mood
+  over time, feelings, topics, patterns and reflection practice) to keep or show a counsellor. It
+  reports what you logged and never assesses you.
+- **Search everything.** Press <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd> (or <kbd>/</kbd>) to jump to any page,
+  breathing exercise or tool, or to switch light and dark mode.
+- **Make it yours.** Light, dark or automatic, plus six accent colours.
 
 ## How it keeps people safe
 
 - **Safety checks come first.** Every message goes through a rule-based classifier before any AI
   model sees it. If it looks like someone is at risk, the app skips the AI completely and shows
   reviewed support text with helpline numbers from the database. See [docs/SAFETY.md](mindloop/docs/SAFETY.md).
+- **Journal entries are checked the same way.** Reframes and three good things go through the same
+  classifier as check-in notes, and a risky entry gets the reviewed crisis card instead of a
+  celebration. The safety plan is deliberately *not* classified: it's meant to name warning signs.
 - **AI replies are checked too.** If a reply tries to diagnose, gives medication doses, claims to
   be human or promises confidentiality, it's thrown away and replaced with a safe template.
-- **Private by default.** Notes, messages and transcripts are encrypted in the database. Voice
-  recordings are deleted right after transcription, logs never contain what users wrote, and
-  exporting or deleting your data takes one click. See [docs/PRIVACY.md](mindloop/docs/PRIVACY.md).
+- **Private by default.** Notes, messages, transcripts, journal entries and safety plans are
+  encrypted in the database. Voice recordings are deleted right after transcription, logs never
+  contain what users wrote, and exporting or deleting your data takes one click. See [docs/PRIVACY.md](mindloop/docs/PRIVACY.md).
 
 ## Getting started
 

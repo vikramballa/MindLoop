@@ -135,7 +135,7 @@ export function ActionCard({
           </ol>
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-surface-2 px-4 py-3">
             <TimerRing fraction={remaining / Math.max(1, action.duration_minutes * 60)} />
-            <p className="flex-1 font-serif text-2xl tabular-nums text-ink" aria-live="polite">
+            <p className="flex-1 font-display text-2xl tabular-nums text-ink" aria-live="polite">
               {remaining > 0 ? t("action.remaining", { time: formatTime(remaining) }) : t("action.timeUp")}
             </p>
             <div className="flex gap-2">

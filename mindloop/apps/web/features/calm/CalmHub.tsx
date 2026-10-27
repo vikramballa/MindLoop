@@ -84,7 +84,7 @@ export function CalmHub({ signedIn = true }: { signedIn?: boolean }) {
           )}
           {tool === "sounds" && (
             <>
-              <h2 className="mb-1 font-serif text-3xl text-ink">{t("calm.sounds.title")}</h2>
+              <h2 className="mb-1 font-display text-3xl text-ink">{t("calm.sounds.title")}</h2>
               <p className="mb-5 text-sm text-ink-soft">{t("calm.sounds.intro")}</p>
               <Sounds onPlay={() => used("sounds")} />
             </>

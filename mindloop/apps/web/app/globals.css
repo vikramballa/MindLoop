@@ -1,105 +1,124 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. A warm paper background, near-black ink and a single lime accent. Everything
- * else that has colour (faces, calendar, garden, background glow) takes it from the mood palette.
- * The amber "care" colour is only used on support and crisis screens.
+ * Design tokens. A cool, quiet neutral base, near-black ink and one accent the user can pick
+ * (iris by default). Everything else that has colour (faces, calendar, garden, background glow)
+ * takes it from the mood palette. The amber "care" colour is only used on support and crisis screens.
  * Dark mode follows the system unless the user picks a theme (<html data-theme="light|dark">).
  */
 :root {
-  --bg: #f3f0ea;
-  --surface: #fbfaf6;
-  --surface-2: #ebe7df;
+  --bg: #f4f4f7;
+  --surface: #ffffff;
+  --surface-2: #eeeef3;
   --raised: #ffffff;
-  --border: #e0dbd1;
-  --ink: #16131b;
-  --ink-soft: #4b4653;
-  --ink-faint: #69646f;
-  --accent: #cbef55;
-  --on-accent: #16131b;
-  --accent-fg: #4a6500;
-  --accent-soft: #e9f5c2;
+  --border: #e4e4ec;
+  --ink: #121217;
+  --ink-soft: #4a4a57;
+  --ink-faint: #62626f;
+  --accent: #6553e6;
+  --on-accent: #ffffff;
+  --accent-fg: color-mix(in oklab, var(--accent) 62%, #000);
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, var(--surface));
   --green: #1d7a5c;
-  --green-soft: #dbf1e7;
-  --blue-soft: #e3ebf7;
+  --green-soft: #dcf3e9;
+  --blue-soft: #e6ecfa;
   --care: #8a4a12;
-  --care-soft: #fbf0e2;
+  --care-soft: #fcf1e3;
   --care-border: #efd4b0;
-  --chart-line: #16131b;
-  --chart-grid: #e4dfd6;
-  --focus: #4a6500;
-  --shadow: 30 22 20;
-  --highlight: rgb(255 255 255 / 0.55);
-  --feature: #16131b;
-  --on-feature: #f3f1f6;
+  --chart-line: var(--accent-fg);
+  --chart-grid: #e6e6ee;
+  --focus: var(--accent-fg);
+  --shadow: 24 22 48;
+  --highlight: rgb(255 255 255 / 0.7);
+  --feature: #16151d;
+  --on-feature: #f4f3f8;
   --aura-a: #c9c2ff;
-  --aura-b: #ffd3b8;
-  --aura-opacity: 0.6;
-  --grain-opacity: 0.05;
+  --aura-b: #b8e3ff;
+  --aura-opacity: 0.55;
   color-scheme: light;
+}
+
+/* User-chosen accent (<html data-accent="...">). Iris is the default; lighter accents take dark text. */
+:root[data-accent="lime"] {
+  --accent: #c6ec4f;
+  --on-accent: #121217;
+}
+:root[data-accent="mint"] {
+  --accent: #3fd3a4;
+  --on-accent: #121217;
+}
+:root[data-accent="sunset"] {
+  --accent: #ff8f5e;
+  --on-accent: #121217;
+}
+:root[data-accent="ocean"] {
+  --accent: #4aa8ff;
+  --on-accent: #121217;
+}
+:root[data-accent="rose"] {
+  --accent: #f27aa6;
+  --on-accent: #121217;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0e0d12;
-    --surface: #16151b;
-    --surface-2: #211f28;
-    --raised: #1b1a21;
-    --border: #2a2832;
-    --ink: #f3f1f6;
-    --ink-soft: #bfbac8;
-    --ink-faint: #918c9b;
-    --accent: #d4f56a;
-    --on-accent: #121410;
-    --accent-fg: #d4f56a;
-    --accent-soft: #252c10;
+    --bg: #0b0b10;
+    --surface: #14141b;
+    --surface-2: #1d1d26;
+    --raised: #191921;
+    --border: #262631;
+    --ink: #f4f3f8;
+    --ink-soft: #c4c4d0;
+    --ink-faint: #9a9aa8;
+    --accent-fg: color-mix(in oklab, var(--accent) 78%, #fff);
+    --accent-soft: color-mix(in oklab, var(--accent) 18%, var(--surface));
     --green: #74d6b0;
-    --green-soft: #142a22;
-    --blue-soft: #1a2232;
+    --green-soft: #132a21;
+    --blue-soft: #19213a;
     --care: #f3c58f;
     --care-soft: #2a2015;
     --care-border: #4a3820;
-    --chart-line: #f3f1f6;
-    --chart-grid: #26242d;
-    --focus: #d4f56a;
+    --chart-grid: #262631;
     --shadow: 0 0 0;
-    --highlight: rgb(255 255 255 / 0.04);
-    --feature: #23212b;
-    --on-feature: #f3f1f6;
-    --aura-opacity: 0.3;
-    --grain-opacity: 0.07;
+    --highlight: rgb(255 255 255 / 0.05);
+    --feature: #1f1e29;
+    --on-feature: #f4f3f8;
+    --aura-opacity: 0.28;
+  }
+  :root:not([data-theme="light"]):not([data-accent]) {
+    --accent: #9b8cff;
+    --on-accent: #121217;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0e0d12;
-  --surface: #16151b;
-  --surface-2: #211f28;
-  --raised: #1b1a21;
-  --border: #2a2832;
-  --ink: #f3f1f6;
-  --ink-soft: #bfbac8;
-  --ink-faint: #918c9b;
-  --accent: #d4f56a;
-  --on-accent: #121410;
-  --accent-fg: #d4f56a;
-  --accent-soft: #252c10;
+  --bg: #0b0b10;
+  --surface: #14141b;
+  --surface-2: #1d1d26;
+  --raised: #191921;
+  --border: #262631;
+  --ink: #f4f3f8;
+  --ink-soft: #c4c4d0;
+  --ink-faint: #9a9aa8;
+  --accent-fg: color-mix(in oklab, var(--accent) 78%, #fff);
+  --accent-soft: color-mix(in oklab, var(--accent) 18%, var(--surface));
   --green: #74d6b0;
-  --green-soft: #142a22;
-  --blue-soft: #1a2232;
+  --green-soft: #132a21;
+  --blue-soft: #19213a;
   --care: #f3c58f;
   --care-soft: #2a2015;
   --care-border: #4a3820;
-  --chart-line: #f3f1f6;
-  --chart-grid: #26242d;
-  --focus: #d4f56a;
+  --chart-grid: #262631;
   --shadow: 0 0 0;
-  --highlight: rgb(255 255 255 / 0.04);
-  --feature: #23212b;
-  --on-feature: #f3f1f6;
-  --aura-opacity: 0.3;
-  --grain-opacity: 0.07;
+  --highlight: rgb(255 255 255 / 0.05);
+  --feature: #1f1e29;
+  --on-feature: #f4f3f8;
+  --aura-opacity: 0.28;
+}
+:root[data-theme="dark"]:not([data-accent]) {
+  --accent: #9b8cff;
+  --on-accent: #121217;
 }
 
 /* Mood-reactive glow: set by <html data-mood="1..5">. Registered so the colours cross-fade. */
@@ -156,8 +175,9 @@
   --color-care-soft: var(--care-soft);
   --color-care-border: var(--care-border);
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
-  --radius-card: 1.5rem;
+  --font-display: var(--font-bricolage), var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-quote: var(--font-instrument), ui-serif, Georgia, serif;
+  --radius-card: 1.75rem;
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -166,6 +186,13 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
+}
+
+@layer base {
+  .font-display {
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
 }
 
 body {
@@ -215,16 +242,6 @@ body {
   animation-delay: -14s;
 }
 
-/* Film grain: breaks digital flatness. Pure CSS, no network request. */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
@@ -245,7 +262,7 @@ body {
 }
 
 @layer components {
-/* Surfaces: a hairline border plus a soft shadow tinted to the page, lit from above. */
+/* Surfaces: a hairline border plus a soft, layered shadow tinted to the page, lit from above. */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -253,16 +270,56 @@ body {
   box-shadow:
     0 1px 0 var(--highlight) inset,
     0 1px 2px rgb(var(--shadow) / 0.04),
-    0 12px 32px -18px rgb(var(--shadow) / 0.18);
+    0 2px 6px -2px rgb(var(--shadow) / 0.04),
+    0 18px 36px -24px rgb(var(--shadow) / 0.2);
 }
 .glass {
-  background: color-mix(in oklab, var(--surface) 72%, transparent);
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  backdrop-filter: blur(22px) saturate(1.6);
   box-shadow:
     0 1px 0 var(--highlight) inset,
-    0 16px 40px -16px rgb(var(--shadow) / 0.35);
+    0 20px 44px -18px rgb(var(--shadow) / 0.32);
+}
+/* Interactive card: lifts a little on hover (pointer devices only) and settles on press. */
+.lift {
+  transition:
+    transform 260ms var(--ease-out-soft),
+    box-shadow 260ms var(--ease-out-soft),
+    border-color 200ms ease;
+}
+@media (hover: hover) {
+  .lift:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--accent) 30%, var(--border));
+    box-shadow:
+      0 1px 0 var(--highlight) inset,
+      0 24px 44px -26px rgb(var(--shadow) / 0.34);
+  }
+}
+.lift:active {
+  transform: scale(0.985);
+}
+/* A soft wash of the accent, for hero tiles. */
+.accent-wash {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in oklab, var(--accent) 26%, transparent), transparent 60%),
+    var(--surface);
+}
+.kbd {
+  display: inline-flex;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  padding: 0 0.3rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-faint);
 }
 }
 
@@ -371,6 +428,49 @@ body {
   transform-origin: 50% 100%;
   animation: sprout 700ms var(--ease-spring) both;
   animation-delay: calc(var(--i, 0) * 35ms);
+}
+
+/* Bottom sheets and dialogs. */
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.animate-sheet {
+  animation: sheet-up 320ms var(--ease-out-soft) both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.animate-fade {
+  animation: fade-in 200ms ease both;
+}
+
+/* Printing (the wellbeing report): plain paper, no app chrome, no glow. */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+  }
+  .aura,
+  .no-print {
+    display: none !important;
+  }
+  .card {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

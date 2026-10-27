@@ -3,8 +3,8 @@
 
 Uses only the standard library. It walks through health checks and the main pages, signs up
 and onboards a new user, does a quick check-in and one with a note, leaves feedback, tries
-the high-risk safety flow, chats in Talk, sends a voice message, loads patterns, exports the
-data and finally deletes the account.
+the high-risk safety flow, chats in Talk, sends a voice message, writes a reframe and three good
+things, saves a safety plan, loads patterns, exports the data and finally deletes the account.
 
     python3 scripts/smoke_test.py [--base http://localhost:3000] [--audio clip.wav] [--skip-llm]
 """
@@ -107,7 +107,8 @@ def main() -> int:
     status, ready = api.json("GET", "/ready")
     check("API /ready", status == 200, str(ready))
     check("Web /api/health", c.json("GET", "/api/health")[1].get("status") == "ok")
-    for page in ("/", "/login", "/register", "/support", "/home", "/talk", "/journey", "/calm", "/privacy"):
+    for page in ("/", "/login", "/register", "/support", "/home", "/talk", "/journey", "/calm", "/privacy",
+                 "/reflect", "/reflect/reframe", "/reflect/gratitude", "/safety-plan", "/journey/report"):
         check(f"Web page {page}", c.request("GET", page)[0] == 200)
 
     print("Account & onboarding")
@@ -183,11 +184,26 @@ def main() -> int:
             check(f"voice pipeline finished ({final.get('status')}, {final.get('error_code')})",
                   final.get("status") == expected or (not args.audio and final.get("status") == "completed"))
 
+    print("Reflect & safety plan")
+    status, r = c.json("POST", "/api/v1/reflections", {
+        "kind": "reframe", "situation": "", "thought": "I always mess things up.", "belief_before": 80,
+        "distortions": ["overgeneralizing"], "evidence_for": "", "evidence_against": "I passed the quiz.",
+        "balanced": "Sometimes things go wrong. Not always.", "belief_after": 40,
+    })
+    check("reframe saved", status == 201 and r.get("reflection", {}).get("belief_after") == 40, str(r)[:200])
+    status, r = c.json("POST", "/api/v1/reflections", {"kind": "gratitude", "items": ["Sunshine"], "why": ""})
+    check("three good things saved", status == 201 and r.get("support") is None)
+    status, stats = c.json("GET", "/api/v1/reflections/stats")
+    check("reflection stats", status == 200 and stats.get("reframes") == 1 and stats.get("avg_belief_shift") == 40.0)
+    status, plan = c.json("PUT", "/api/v1/safety-plan", {"coping": ["Walk"], "people": [{"name": "Riya", "phone": ""}]})
+    check("safety plan saved", status == 200 and plan.get("coping") == ["Walk"] and plan.get("updated_at"))
+
     print("Patterns & privacy")
     status, pat = c.json("GET", "/api/v1/patterns")
     check("patterns endpoint", status == 200 and "ready" in pat)
     status, data = c.request("GET", "/api/v1/privacy/export")
     check("export contains check-ins", status == 200 and b'"checkins"' in data)
+    check("export contains reflections and safety plan", b"I always mess things up." in data and b'"Riya"' in data)
     status, _ = c.request("POST", "/api/v1/privacy/delete-account", {"password": password})
     check("account deleted", status == 204)
     status, _ = c.json("POST", "/api/v1/auth/login", {"email": email, "password": password})

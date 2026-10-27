@@ -81,7 +81,7 @@ export default function OnboardingPage() {
 
       <div key={step} className="mt-10">
         <p className="animate-rise text-[13px] font-medium text-ink-faint">{step === 1 ? t("onboarding.subtitle") : t("onboarding.title")}</p>
-        <h1 className="animate-rise mt-2 font-serif text-[2.6rem] leading-[1.02] tracking-[-0.02em] text-ink text-balance" style={stagger(1)}>
+        <h1 className="animate-rise mt-2 font-display text-[2.6rem] leading-[1.02] tracking-[-0.035em] text-ink text-balance" style={stagger(1)}>
           {t(`onboarding.stepTitle${step}`)}
         </h1>
       </div>

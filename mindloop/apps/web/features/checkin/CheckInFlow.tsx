@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Burst } from "@/components/Burst";
-import { ArrowLeftIcon, ConnectIcon, TalkIcon, XIcon } from "@/components/icons";
+import { ConnectIcon, TalkIcon } from "@/components/icons";
+import { FlowHeader, StepActions, StepTitle } from "@/components/Flow";
 import { MoodFace } from "@/components/MoodFace";
 import { Plant } from "@/components/Plant";
 import { Button, ButtonLink, Card, Chip, Notice, Segmented, TextArea, cn, stagger } from "@/components/ui";
@@ -141,50 +141,7 @@ export function CheckInFlow({
 
   return (
     <div className="flex min-h-[calc(100dvh-2.5rem)] flex-col">
-      <div className="flex items-center gap-3 py-2">
-        {step > 0 ? (
-          <button
-            type="button"
-            onClick={back}
-            aria-label={t("onboarding.back")}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-2"
-          >
-            <ArrowLeftIcon className="h-5 w-5" />
-          </button>
-        ) : (
-          <Link
-            href="/home"
-            aria-label={t("checkin.close")}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-2"
-          >
-            <XIcon className="h-5 w-5" />
-          </Link>
-        )}
-        <div className="flex flex-1 gap-1.5" aria-hidden>
-          {Array.from({ length: STEPS }, (_, i) => (
-            <span key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-surface-2">
-              <span
-                className="block h-full rounded-full bg-ink transition-transform duration-500 ease-[var(--ease-out-soft)]"
-                style={{ transform: `scaleX(${i <= step ? 1 : 0})`, transformOrigin: "left" }}
-              />
-            </span>
-          ))}
-        </div>
-        <span className="sr-only" aria-live="polite">
-          {t("onboarding.step", { current: step + 1, total: STEPS })}
-        </span>
-        {step > 0 ? (
-          <Link
-            href="/home"
-            aria-label={t("checkin.close")}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-ink-faint transition-colors hover:bg-surface-2 hover:text-ink"
-          >
-            <XIcon className="h-5 w-5" />
-          </Link>
-        ) : (
-          <span className="w-10" />
-        )}
-      </div>
+      <FlowHeader step={step} total={STEPS} onBack={back} closeHref="/home" />
 
       <div key={step} className="flex flex-1 flex-col pt-6">
         {step === 0 && (
@@ -325,24 +282,6 @@ export function CheckInFlow({
   );
 }
 
-function StepTitle({ eyebrow, face, children }: { eyebrow?: string; face?: number; children: ReactNode }) {
-  return (
-    <div className="animate-rise px-1">
-      {eyebrow && (
-        <p className="mb-3 flex items-center gap-2 text-[13px] font-medium text-ink-faint">
-          {face && <MoodFace mood={face} className="h-6 w-6" />}
-          {eyebrow}
-        </p>
-      )}
-      <h1 className="font-serif text-[2.5rem] leading-[1.04] tracking-[-0.02em] text-ink text-balance">{children}</h1>
-    </div>
-  );
-}
-
-function StepActions({ children }: { children: ReactNode }) {
-  return <div className="sticky bottom-0 mt-auto space-y-2 bg-gradient-to-t from-bg via-bg/90 to-transparent pb-2 pt-8">{children}</div>;
-}
-
 function Processing({ mood }: { mood: number }) {
   const t = useT();
   return (
@@ -351,7 +290,7 @@ function Processing({ mood }: { mood: number }) {
         <span aria-hidden className="animate-ripple absolute inset-0 rounded-full bg-[var(--aura-a)]" />
         <MoodFace mood={mood} className="relative h-28 w-28 animate-orb" />
       </div>
-      <p className="mt-8 font-serif text-3xl text-ink">{t("checkin.processing")}</p>
+      <p className="mt-8 font-display text-3xl text-ink">{t("checkin.processing")}</p>
     </div>
   );
 }
@@ -374,7 +313,7 @@ function CheckInComplete({ result }: { result: CheckInResult }) {
             <Burst />
           </div>
           <p className="mt-4 text-[13px] font-medium text-ink-faint">{t("checkin.doneEyebrow")}</p>
-          <h1 className="mt-1 font-serif text-[2.4rem] leading-none tracking-[-0.02em] text-ink">{t("checkin.doneTitle")}</h1>
+          <h1 className="mt-1 font-display text-[2.4rem] leading-none tracking-[-0.035em] text-ink">{t("checkin.doneTitle")}</h1>
           <p className="mt-3 max-w-xs text-[15px] text-ink-soft">
             {result.mood <= 2 ? t("checkin.doneLow") : t("checkin.doneBody")}
           </p>
@@ -400,7 +339,7 @@ export function CheckInResultView({ result }: { result: CheckInResult }) {
     <div className="space-y-4">
       {result.support && <SupportCard support={result.support} />}
       {result.reflection && !high && (
-        <p className="animate-rise px-1 font-serif text-[1.65rem] leading-[1.2] tracking-[-0.01em] text-ink text-balance" style={stagger(2)}>
+        <p className="animate-rise px-1 font-quote text-[1.8rem] leading-[1.2] text-ink text-balance" style={stagger(2)}>
           {result.reflection}
         </p>
       )}

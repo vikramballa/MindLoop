@@ -3,7 +3,20 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type ComponentType, type SVGProps } from "react";
-import { ArrowRightIcon, BookIcon, ChevronRightIcon, ConnectIcon, HandIcon, MoonIcon, SoundIcon, SparkIcon, WindIcon } from "@/components/icons";
+import {
+  ArrowRightIcon,
+  BookIcon,
+  BulbIcon,
+  ChevronRightIcon,
+  ConnectIcon,
+  HandIcon,
+  LifebuoyIcon,
+  MoonIcon,
+  SoundIcon,
+  SparkIcon,
+  SunIcon,
+  WindIcon,
+} from "@/components/icons";
 import { MoodFace } from "@/components/MoodFace";
 import { Plant } from "@/components/Plant";
 import { Card, Notice, PageSkeleton, SectionTitle, cn, stagger } from "@/components/ui";
@@ -55,12 +68,13 @@ export default function HomePage() {
     <div className="space-y-8">
       <header className="animate-rise px-1">
         <p className="text-[13px] font-medium text-ink-faint">{home.welcome_back ?? date}</p>
-        <h1 className="mt-2 font-serif text-[2.75rem] leading-[1] tracking-[-0.02em] text-ink sm:text-[3.25rem]">
+        <h1 className="mt-2 font-display text-[2.6rem] leading-[1.02] tracking-[-0.035em] text-ink sm:text-[3.1rem]">
           {t(`home.${part}`)}
           {home.display_name && (
             <>
-              ,<br />
-              <em className="text-ink-soft">{home.display_name}.</em>
+              {/[?!]$/.test(t(`home.${part}`)) ? "" : ","}
+              <br />
+              <em className="font-quote font-normal tracking-normal text-accent-fg">{home.display_name}.</em>
             </>
           )}
         </h1>
@@ -96,7 +110,7 @@ export default function HomePage() {
             style={{ background: "linear-gradient(135deg, var(--aura-a), var(--aura-b))" }}
           />
           <div className="relative">
-            <h2 id="checkin-title" className="font-serif text-[2rem] leading-[1.05] tracking-[-0.01em] text-ink">
+            <h2 id="checkin-title" className="font-display text-[2rem] leading-[1.05] tracking-[-0.035em] text-ink">
               {t("mood.question")}
             </h2>
             <p className="mt-1.5 text-sm text-ink-soft">{t("home.checkinSub")}</p>
@@ -114,6 +128,8 @@ export default function HomePage() {
       <WeekGarden week={home.week} days={home.days_checked_in_7d} planted={planted} />
 
       {home.community && <Pulse pulse={home.community} mine={(today?.feelings ?? []) as Feeling[]} />}
+
+      <PlanLink />
 
       {insight && (
         <Link href="/journey" className="group block animate-rise" style={stagger(6)}>
@@ -143,8 +159,8 @@ function PromptCard() {
           <BookIcon className="h-4 w-4" />
           {t("home.promptTitle")}
         </p>
-        <p className="relative mt-3 font-serif text-[1.75rem] italic leading-[1.15] text-balance">{t(`prompts.${todaysPrompt()}`)}</p>
-        <p className="relative mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+        <p className="relative mt-3 font-quote text-[1.85rem] italic leading-[1.15] text-balance">{t(`prompts.${todaysPrompt()}`)}</p>
+        <p className="relative mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[color-mix(in_oklab,var(--accent)_55%,#fff)]">
           {t("home.promptCta")}
           <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </p>
@@ -162,14 +178,16 @@ const TOOLS: Record<string, Tool> = {
   sleep: { href: "/calm?tool=breathe&rhythm=478", key: "sleep", Icon: MoonIcon, tint: ["#9d8aec", "#dd8fc2"] },
   connect: { href: "/connect", key: "connect", Icon: ConnectIcon, tint: ["#ffd76a", "#ff9f5a"] },
   actions: { href: "/calm?tool=actions", key: "actions", Icon: SparkIcon, tint: ["#e3f59a", "#b5e04a"] },
+  reframe: { href: "/reflect/reframe", key: "reframe", Icon: BulbIcon, tint: ["#b7a9ff", "#6553e6"] },
+  gratitude: { href: "/reflect/gratitude", key: "gratitude", Icon: SunIcon, tint: ["#ffe08a", "#ffb84d"] },
 };
 
-/** Ordered for the time of day: the first tile is the one most likely to help right now. */
+/** Ordered for the time of day: the first (wide) tile is the one most likely to help right now. */
 const ORDER: Record<ReturnType<typeof partOfDay>, string[]> = {
-  morning: ["breathe", "actions", "connect", "ground", "sounds"],
-  afternoon: ["breathe", "ground", "actions", "connect", "sounds"],
-  evening: ["connect", "breathe", "sounds", "ground", "actions"],
-  night: ["sleep", "sounds", "ground", "breathe", "connect"],
+  morning: ["breathe", "reframe", "actions", "connect", "gratitude"],
+  afternoon: ["breathe", "reframe", "ground", "actions", "connect"],
+  evening: ["gratitude", "reframe", "connect", "breathe", "sounds"],
+  night: ["sleep", "gratitude", "sounds", "ground", "reframe"],
 };
 
 function QuickTools({ part }: { part: ReturnType<typeof partOfDay> }) {
@@ -177,30 +195,39 @@ function QuickTools({ part }: { part: ReturnType<typeof partOfDay> }) {
   return (
     <section aria-labelledby="tools-title" className="animate-rise" style={stagger(3)}>
       <SectionTitle id="tools-title">{t("home.toolsTitle")}</SectionTitle>
-      <ul className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
+      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {ORDER[part].map((k, i) => {
           const { href, key, Icon, tint } = TOOLS[k];
+          const wide = i === 0;
           return (
-            <li key={key} className="snap-start">
+            <li key={key} className={cn(wide && "col-span-2")}>
               <Link
                 href={href}
-                className="card group relative flex h-40 w-36 flex-col justify-between overflow-hidden p-4 transition-transform duration-200 active:scale-[0.97]"
+                className={cn(
+                  "card lift group relative flex h-full overflow-hidden p-4",
+                  wide ? "min-h-36 items-end justify-between gap-4" : "min-h-36 flex-col justify-between",
+                )}
               >
                 <span
                   aria-hidden
-                  className="absolute -right-8 -top-8 h-28 w-28 rounded-full opacity-70 blur-xl transition-transform duration-500 group-hover:scale-110"
+                  className={cn(
+                    "absolute rounded-full opacity-60 blur-2xl transition-transform duration-500 group-hover:scale-110",
+                    wide ? "-right-10 -top-16 h-44 w-44" : "-right-8 -top-8 h-28 w-28",
+                  )}
                   style={{ background: `linear-gradient(135deg, ${tint[0]}, ${tint[1]})` }}
                 />
-                <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-raised/80 text-ink shadow-sm">
-                  <Icon className="h-5 w-5" />
+                <span className={cn("relative flex h-10 w-10 items-center justify-center rounded-xl bg-raised/85 text-ink shadow-sm", wide && "order-last h-12 w-12")}>
+                  <Icon className={wide ? "h-6 w-6" : "h-5 w-5"} />
                 </span>
                 <span className="relative">
-                  {i === 0 && (
-                    <span className="mb-1.5 inline-block rounded-md bg-ink px-1.5 py-0.5 text-[10px] font-semibold text-bg">
+                  {wide && (
+                    <span className="mb-2 inline-block rounded-md bg-ink px-1.5 py-0.5 text-[10px] font-semibold text-bg">
                       {t(`home.for.${part}`)}
                     </span>
                   )}
-                  <span className="block font-semibold tracking-[-0.01em] text-ink">{t(`home.tools.${key}`)}</span>
+                  <span className={cn("block font-semibold tracking-[-0.01em] text-ink", wide && "font-display text-xl")}>
+                    {t(`home.tools.${key}`)}
+                  </span>
                   <span className="block text-xs text-ink-faint">{t(`home.tools.${key}Sub`)}</span>
                 </span>
               </Link>
@@ -209,6 +236,23 @@ function QuickTools({ part }: { part: ReturnType<typeof partOfDay> }) {
         })}
       </ul>
     </section>
+  );
+}
+
+/** A quiet link to the user's own safety plan, always one tap away on Today. */
+function PlanLink() {
+  const { t } = useI18n();
+  return (
+    <Link href="/safety-plan" className="card lift group animate-rise flex items-center gap-4 p-4" style={stagger(6)}>
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-care-soft text-care">
+        <LifebuoyIcon className="h-5 w-5" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-semibold text-ink">{t("safetyPlan.cardTitle")}</span>
+        <span className="block text-sm text-ink-soft">{t("safetyPlan.cardSub")}</span>
+      </span>
+      <ChevronRightIcon className="h-5 w-5 shrink-0 text-ink-faint transition-transform group-hover:translate-x-0.5" />
+    </Link>
   );
 }
 

@@ -6,7 +6,21 @@ import { useEffect, type ComponentType, type ReactNode, type SVGProps } from "re
 import { useAuth } from "@/lib/auth";
 import { useT } from "@/lib/i18n";
 import { MOOD_COLORS } from "@/lib/mood";
-import { CalmIcon, ConnectIcon, HeartIcon, HomeIcon, JourneyIcon, LogoMark, PlusIcon, ProfileIcon, TalkIcon } from "./icons";
+import { CommandPalette, openPalette } from "./CommandPalette";
+import {
+  BookIcon,
+  CalmIcon,
+  ConnectIcon,
+  HeartIcon,
+  HomeIcon,
+  JourneyIcon,
+  LifebuoyIcon,
+  LogoMark,
+  PlusIcon,
+  ProfileIcon,
+  SearchIcon,
+  TalkIcon,
+} from "./icons";
 import { PageSkeleton, cn } from "./ui";
 
 type NavItem = { href: string; key: string; Icon: ComponentType<SVGProps<SVGSVGElement>> };
@@ -18,14 +32,28 @@ const TABS: NavItem[] = [
   { href: "/talk", key: "nav.talk", Icon: TalkIcon },
 ];
 
-const DESKTOP_NAV: NavItem[] = [
-  ...TABS,
-  { href: "/connect", key: "nav.connect", Icon: ConnectIcon },
-  { href: "/profile", key: "nav.profile", Icon: ProfileIcon },
+const DESKTOP_NAV: Array<{ group: string; items: NavItem[] }> = [
+  { group: "nav.groupDaily", items: [TABS[0], TABS[1]] },
+  {
+    group: "nav.groupTools",
+    items: [
+      { href: "/reflect", key: "nav.reflect", Icon: BookIcon },
+      TABS[2],
+      TABS[3],
+      { href: "/connect", key: "nav.connect", Icon: ConnectIcon },
+    ],
+  },
+  {
+    group: "nav.groupYou",
+    items: [
+      { href: "/safety-plan", key: "nav.safetyPlan", Icon: LifebuoyIcon },
+      { href: "/profile", key: "nav.profile", Icon: ProfileIcon },
+    ],
+  },
 ];
 
-/** Routes that take over the whole screen (no tab bar, no header). */
-const IMMERSIVE = ["/check-in"];
+/** Routes that take over the whole screen (no tab bar, no header). `/reflect/` covers the exercises, not the hub. */
+const IMMERSIVE = ["/check-in", "/reflect/"];
 
 export function Brand({ className }: { className?: string }) {
   const t = useT();
@@ -80,52 +108,84 @@ export function AppShell({ children }: { children: ReactNode }) {
     );
   }
 
-  const active = (href: string) => pathname.startsWith(href);
+  // A tab is active on its own page and its sub-pages (e.g. the report under Journey).
+  const active = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <div className="min-h-dvh md:flex">
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-line/70 px-4 py-7 md:flex">
-        <Link href="/home" className="mb-8 px-3">
+      <CommandPalette />
+      <aside className="no-print sticky top-0 hidden h-dvh w-[17rem] shrink-0 flex-col border-r border-line/70 bg-surface/40 px-4 py-6 backdrop-blur-xl md:flex">
+        <Link href="/home" className="mb-6 px-2">
           <Brand />
         </Link>
+        <button
+          type="button"
+          onClick={openPalette}
+          className="mb-3 flex h-10 items-center gap-2.5 rounded-xl border border-line bg-raised px-3 text-sm text-ink-faint transition-colors hover:border-ink/20 hover:text-ink-soft"
+        >
+          <SearchIcon className="h-4 w-4" />
+          <span className="flex-1 text-left">{t("nav.search")}</span>
+          <span className="kbd">⌘K</span>
+        </button>
         <Link
           href="/check-in"
-          className="mb-6 flex h-12 items-center justify-center gap-2 rounded-full bg-accent font-semibold text-on-accent shadow-[0_10px_24px_-12px_color-mix(in_oklab,var(--accent)_80%,transparent)] transition-transform active:scale-[0.97]"
+          className="mb-5 flex h-11 items-center justify-center gap-2 rounded-xl bg-accent font-semibold text-on-accent shadow-[0_10px_24px_-12px_color-mix(in_oklab,var(--accent)_80%,transparent)] transition-transform active:scale-[0.97]"
         >
           <PlusIcon className="h-5 w-5" strokeWidth={2.4} />
           {t("nav.checkin")}
         </Link>
-        <nav aria-label={t("nav.main")} className="flex flex-col gap-0.5">
-          {DESKTOP_NAV.map(({ href, key, Icon }) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={active(href) ? "page" : undefined}
-              className={cn(
-                "flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[15px] transition-colors",
-                active(href) ? "bg-surface font-semibold text-ink ring-1 ring-line" : "text-ink-soft hover:bg-surface/70 hover:text-ink",
-              )}
-            >
-              <Icon className="h-5 w-5" />
-              {t(key)}
-            </Link>
+        <nav aria-label={t("nav.main")} className="flex flex-col gap-4 overflow-y-auto">
+          {DESKTOP_NAV.map(({ group, items }) => (
+            <div key={group}>
+              <p className="mb-1 px-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-faint">{t(group)}</p>
+              <div className="flex flex-col gap-0.5">
+                {items.map(({ href, key, Icon }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    aria-current={active(href) ? "page" : undefined}
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] transition-colors",
+                      active(href) ? "bg-accent-soft font-semibold text-ink" : "text-ink-soft hover:bg-surface-2/70 hover:text-ink",
+                    )}
+                  >
+                    <Icon className={cn("h-5 w-5", active(href) && "text-accent-fg")} />
+                    {t(key)}
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
-        <Link
-          href="/support"
-          className="mt-auto flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm font-medium text-care hover:bg-care-soft"
-        >
-          <HeartIcon className="h-4 w-4" />
-          {t("app.crisisLink")}
-        </Link>
+        <div className="mt-auto space-y-2 pt-4">
+          <Link
+            href="/support"
+            className="flex items-center gap-2 rounded-xl border border-care-border bg-care-soft px-3 py-2.5 text-sm font-medium text-care transition-colors hover:brightness-[0.98]"
+          >
+            <HeartIcon className="h-4 w-4" />
+            {t("app.crisisLink")}
+          </Link>
+          <Link href="/profile" className="flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-surface-2/70">
+            <Avatar name={user.display_name} className="h-9 w-9 text-sm" />
+            <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{user.display_name ?? t("nav.profile")}</span>
+          </Link>
+        </div>
       </aside>
 
       <div className="flex min-h-dvh flex-1 flex-col">
-        <header className="flex items-center justify-between gap-3 px-5 pt-[max(1rem,env(safe-area-inset-top))] md:hidden">
+        <header className="no-print flex items-center justify-between gap-3 px-5 pt-[max(1rem,env(safe-area-inset-top))] md:hidden">
           <Link href="/home" aria-label={t("nav.home")}>
             <LogoMark className="h-8 w-8" />
           </Link>
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={openPalette}
+              aria-label={t("nav.search")}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-raised/80 text-ink-soft backdrop-blur"
+            >
+              <SearchIcon className="h-[18px] w-[18px]" />
+            </button>
             <Link
               href="/support"
               className="flex h-9 items-center gap-1.5 rounded-full border border-care-border bg-care-soft px-3.5 text-[13px] font-medium text-care"
@@ -141,12 +201,12 @@ export function AppShell({ children }: { children: ReactNode }) {
             </Link>
           </div>
         </header>
-        <main id="main" className="mx-auto w-full max-w-2xl flex-1 px-4 pb-36 pt-5 md:pb-14 md:pt-12">
+        <main id="main" className="mx-auto w-full max-w-2xl flex-1 px-4 pb-36 pt-5 md:pb-14 md:pt-12 lg:max-w-3xl">
           {children}
         </main>
       </div>
 
-      <nav aria-label={t("nav.main")} className="fixed inset-x-4 bottom-[max(0.9rem,env(safe-area-inset-bottom))] z-20 md:hidden">
+      <nav aria-label={t("nav.main")} className="no-print fixed inset-x-4 bottom-[max(0.9rem,env(safe-area-inset-bottom))] z-20 md:hidden">
         <ul className="glass mx-auto grid max-w-md grid-cols-5 items-center rounded-[1.6rem] p-1.5">
           {[TABS[0], TABS[1], null, TABS[2], TABS[3]].map((item) =>
             item === null ? (
@@ -154,7 +214,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <Link
                   href="/check-in"
                   aria-label={t("nav.checkin")}
-                  className="-my-3 flex h-14 w-14 items-center justify-center rounded-[1.25rem] bg-ink text-bg shadow-[0_12px_24px_-10px_rgb(var(--shadow)/0.7)] transition-transform duration-200 active:scale-90"
+                  className="-my-3 flex h-14 w-14 items-center justify-center rounded-[1.25rem] bg-accent text-on-accent shadow-[0_14px_28px_-10px_color-mix(in_oklab,var(--accent)_75%,transparent)] transition-transform duration-200 active:scale-90"
                 >
                   <PlusIcon className="h-6 w-6" strokeWidth={2.4} />
                 </Link>
@@ -166,15 +226,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                   aria-current={active(item.href) ? "page" : undefined}
                   className={cn(
                     "flex flex-col items-center gap-1 rounded-[1.1rem] py-2 text-[11px] font-medium transition-colors duration-200",
-                    active(item.href) ? "text-ink" : "text-ink-faint",
+                    active(item.href) ? "bg-accent-soft text-ink" : "text-ink-faint",
                   )}
                 >
-                  <span className="relative">
-                    <item.Icon className="h-[22px] w-[22px]" strokeWidth={active(item.href) ? 2.1 : 1.8} />
-                    {active(item.href) && (
-                      <span aria-hidden className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-ink" />
-                    )}
-                  </span>
+                  <item.Icon className={cn("h-[22px] w-[22px]", active(item.href) && "text-accent-fg")} strokeWidth={active(item.href) ? 2.1 : 1.8} />
                   {t(item.key)}
                 </Link>
               </li>
